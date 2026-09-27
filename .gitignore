@@ -6,3 +6,4 @@ dist
 # Local tooling / scratch output
 .playwright-mcp/
 laptop_check.png
+.vercel
