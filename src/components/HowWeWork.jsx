@@ -1,10 +1,18 @@
 import { useRef, useState } from 'react'
 import { useInView, useMediaQuery, useScrollFrame } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
-import discover from '../assets/how-we-work/discover.png'
-import define from '../assets/how-we-work/define.png'
-import build from '../assets/how-we-work/build.png'
-import measure from '../assets/how-we-work/measure.png'
+import discover from '../assets/how-we-work/discover.webp'
+import discoverSm from '../assets/how-we-work/discover-sm.webp'
+import discoverMd from '../assets/how-we-work/discover-md.webp'
+import define from '../assets/how-we-work/define.webp'
+import defineSm from '../assets/how-we-work/define-sm.webp'
+import defineMd from '../assets/how-we-work/define-md.webp'
+import build from '../assets/how-we-work/build.webp'
+import buildSm from '../assets/how-we-work/build-sm.webp'
+import buildMd from '../assets/how-we-work/build-md.webp'
+import measure from '../assets/how-we-work/measure.webp'
+import measureSm from '../assets/how-we-work/measure-sm.webp'
+import measureMd from '../assets/how-we-work/measure-md.webp'
 
 /**
  * How we work — node 1917:2886.
@@ -19,21 +27,29 @@ const STEPS = [
     title: '01 — Discover',
     desc: 'We start with the business — not the marketing channel. We learn your goals, customers, competitive landscape, existing activity, challenges and opportunities.',
     image: discover,
+    imageSm: discoverSm,
+    imageMd: discoverMd,
   },
   {
     title: '02 — Define',
     desc: 'We turn the insight into direction. That means identifying priorities, positioning, audiences, messages, channels, objectives and the role each part of the marketing ecosystem needs to play.',
     image: define,
+    imageSm: defineSm,
+    imageMd: defineMd,
   },
   {
     title: '03 — Build & Execute',
     desc: 'Strategy becomes work people can actually experience. Our team brings together creative, content, digital, campaigns, technology and performance execution around one shared direction.',
     image: build,
+    imageSm: buildSm,
+    imageMd: buildMd,
   },
   {
     title: '04 — Measure & Evolve',
     desc: "We don't disappear after launch. We look at what's working, what isn't and where the next opportunity exists — then use those insights to continuously improve the strategy.",
     image: measure,
+    imageSm: measureSm,
+    imageMd: measureMd,
   },
 ]
 
@@ -73,8 +89,11 @@ function StackedStep({ step }) {
       >
         <img
           src={step.image}
+          srcSet={`${step.imageSm} 800w, ${step.imageMd} 1200w, ${step.image} 1400w`}
+          sizes="100vw"
           alt={`${step.title.replace(/^\d+ — /, '')} process illustration`}
           loading="lazy"
+          decoding="async"
           className="h-full w-full object-cover"
         />
       </Reveal>
@@ -206,6 +225,10 @@ function PinnedSteps() {
               <img
                 key={step.title}
                 src={step.image}
+                srcSet={`${step.imageSm} 800w, ${step.imageMd} 1200w, ${step.image} 1400w`}
+                sizes="45vw"
+                loading="lazy"
+                decoding="async"
                 alt={i === active ? `${step.title.replace(/^\d+ — /, '')} process illustration` : ''}
                 aria-hidden={i !== active}
                 className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-700 ease-out ${

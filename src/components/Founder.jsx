@@ -1,4 +1,6 @@
-import founderPhoto from '../assets/founder/founder-photo.png'
+import founderPhoto from '../assets/founder/founder-photo.webp'
+import founderPhotoSm from '../assets/founder/founder-photo-sm.webp'
+import founderPhotoMd from '../assets/founder/founder-photo-md.webp'
 import { useInView } from '../hooks/scroll'
 import { Reveal, Stagger } from './Reveal'
 
@@ -57,6 +59,10 @@ export default function Founder() {
         <div className="w-full overflow-hidden rounded-[24px] md:rounded-[40px]">
           <img
             src={founderPhoto}
+            srcSet={`${founderPhotoSm} 800w, ${founderPhotoMd} 1200w, ${founderPhoto} 1600w`}
+            sizes="(min-width: 1024px) 50vw, 100vw"
+            loading="lazy"
+            decoding="async"
             alt="Sidi Adisa, Founder & Lead Marketing Consultant at IDIS Digital"
             className={`h-auto w-full object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-100 ${
               inView ? 'scale-100' : 'scale-115'

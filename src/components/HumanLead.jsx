@@ -1,5 +1,7 @@
 import aiMagic from '../assets/human-lead/ai-magic.svg'
-import collage from '../assets/human-lead/collage.png'
+import collage from '../assets/human-lead/collage.webp'
+import collageSm from '../assets/human-lead/collage-sm.webp'
+import collageMd from '../assets/human-lead/collage-md.webp'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 
@@ -53,6 +55,10 @@ export default function HumanLead() {
             >
               <img
                 src={collage}
+                srcSet={`${collageSm} 800w, ${collageMd} 1200w, ${collage} 1400w`}
+                sizes="(min-width: 1024px) 50vw, 100vw"
+                loading="lazy"
+                decoding="async"
                 alt="Human and AI collaboration collage"
                 className="h-full w-full object-cover"
               />

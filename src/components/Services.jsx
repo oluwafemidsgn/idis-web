@@ -1,7 +1,15 @@
-import strategyGrowth from '../assets/services/strategy-growth.png'
-import brandCreative from '../assets/services/brand-creative.png'
-import digitalExperience from '../assets/services/digital-experience.png'
-import performanceAi from '../assets/services/performance-ai.png'
+import strategyGrowth from '../assets/services/strategy-growth.webp'
+import strategyGrowthSm from '../assets/services/strategy-growth-sm.webp'
+import strategyGrowthMd from '../assets/services/strategy-growth-md.webp'
+import brandCreative from '../assets/services/brand-creative.webp'
+import brandCreativeSm from '../assets/services/brand-creative-sm.webp'
+import brandCreativeMd from '../assets/services/brand-creative-md.webp'
+import digitalExperience from '../assets/services/digital-experience.webp'
+import digitalExperienceSm from '../assets/services/digital-experience-sm.webp'
+import digitalExperienceMd from '../assets/services/digital-experience-md.webp'
+import performanceAi from '../assets/services/performance-ai.webp'
+import performanceAiSm from '../assets/services/performance-ai-sm.webp'
+import performanceAiMd from '../assets/services/performance-ai-md.webp'
 import { useRef } from 'react'
 import { useInView, useMediaQuery, usePrefersReducedMotion, useStackEffect } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
@@ -16,6 +24,8 @@ import { Reveal, RevealWords } from './Reveal'
 const ROWS = [
   {
     image: strategyGrowth,
+    imageSm: strategyGrowthSm,
+    imageMd: strategyGrowthMd,
     imageLeft: true,
     title: 'Strategy & Growth',
     desc: [
@@ -36,6 +46,8 @@ const ROWS = [
   },
   {
     image: brandCreative,
+    imageSm: brandCreativeSm,
+    imageMd: brandCreativeMd,
     imageLeft: false,
     title: 'Brand & Creative',
     desc: [
@@ -56,6 +68,8 @@ const ROWS = [
   },
   {
     image: digitalExperience,
+    imageSm: digitalExperienceSm,
+    imageMd: digitalExperienceMd,
     imageLeft: true,
     title: 'Digital & Experience',
     desc: [
@@ -76,6 +90,8 @@ const ROWS = [
   },
   {
     image: performanceAi,
+    imageSm: performanceAiSm,
+    imageMd: performanceAiMd,
     imageLeft: false,
     title: 'Performance & AI Marketing',
     desc: [
@@ -130,6 +146,10 @@ function ServiceRow({ row, index, cardRef }) {
             {/* Image settles from a slight zoom as the card arrives */}
             <img
               src={row.image}
+              srcSet={`${row.imageSm} 800w, ${row.imageMd} 1200w, ${row.image} 1400w`}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              loading="lazy"
+              decoding="async"
               alt={row.title}
               className={`h-full w-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-100 ${
                 inView ? 'scale-100' : 'scale-115'

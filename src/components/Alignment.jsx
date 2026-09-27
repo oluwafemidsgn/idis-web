@@ -1,5 +1,7 @@
 import Button from './Button'
-import visual from '../assets/alignment/alignment-visual.png'
+import visual from '../assets/alignment/alignment-visual.webp'
+import visualSm from '../assets/alignment/alignment-visual-sm.webp'
+import visualMd from '../assets/alignment/alignment-visual-md.webp'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 
@@ -57,6 +59,10 @@ export default function Alignment() {
           >
             <img
               src={visual}
+              srcSet={`${visualSm} 800w, ${visualMd} 1200w, ${visual} 1600w`}
+              sizes="(min-width: 1024px) 50vw, 100vw"
+              loading="lazy"
+              decoding="async"
               alt="Smiling professional surrounded by colourful geometric shapes"
               className={`h-auto w-full object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-100 ${
                 inView ? 'scale-100' : 'scale-115'

@@ -2,7 +2,8 @@ import { useRef } from 'react'
 import Button from './Button'
 import { Reveal, RevealWords } from './Reveal'
 import { useMounted, usePrefersReducedMotion, useScrollFrame } from '../hooks/scroll'
-import collage from '../assets/hero-collage.png'
+import collage from '../assets/hero-collage.webp'
+import collageSm from '../assets/hero-collage-sm.webp'
 import personLeft from '../assets/hero/person-left.webp'
 import personCenter from '../assets/hero/person-center.webp'
 import personRight from '../assets/hero/person-right.webp'
@@ -93,7 +94,14 @@ export default function Hero() {
             className="absolute bottom-0 origin-bottom duration-[1200ms]!"
             style={{ left: pct(3, STAGE_W), width: pct(1800, STAGE_W) }}
           >
-            <img src={collage} alt="" className="h-auto w-full" style={drift(0.04)} />
+            <img
+              src={collage}
+              srcSet={`${collageSm} 1200w, ${collage} 2400w`}
+              sizes="(min-width: 768px) 100vw, 180vw"
+              alt=""
+              className="h-auto w-full"
+              style={drift(0.04)}
+            />
           </Reveal>
           {PEOPLE.map((p) => (
             <Reveal
