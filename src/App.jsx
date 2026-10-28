@@ -11,6 +11,7 @@ import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import Contact from './pages/Contact'
 import NotFound from './pages/NotFound'
+import { caseStudyBySlug } from './data/caseStudies'
 
 const TITLES = {
   '/': 'IDIS Digital — Build a marketing system that moves your business forward',
@@ -27,7 +28,11 @@ function RouteEffects() {
   useEffect(() => {
     document.title =
       TITLES[pathname] ??
-      (pathname.startsWith('/projects/') ? 'Awo the Musical — Case Study — IDIS Digital' : pathname.startsWith('/blog/') ? 'AI is a production accelerator — IDIS Digital' : 'IDIS Digital')
+      (pathname.startsWith('/projects/')
+        ? `${caseStudyBySlug(pathname.split('/')[2])?.nav ?? 'Case study'} — Case Study — IDIS Digital`
+        : pathname.startsWith('/blog/')
+          ? 'AI is a production accelerator — IDIS Digital'
+          : 'IDIS Digital')
     // "/services#brand-creative" lands on that section; anything else starts at the top.
     const target = hash && document.getElementById(hash.slice(1))
     if (target) requestAnimationFrame(() => target.scrollIntoView({ behavior: 'smooth' }))

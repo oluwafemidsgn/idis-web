@@ -28,12 +28,14 @@ export const SOCIALS = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/idis-digital-services-b31a27271' },
 ]
 
+// "Projects" also opens a dropdown of every case study (see Nav).
 export const NAV_LINKS = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
   { label: 'Services', to: '/services' },
-  { label: 'Projects', to: '/projects' },
-  { label: 'Resources', to: '/blog' },
+  { label: 'Projects', to: '/projects', withCaseStudies: true },
+  { label: 'Journal', to: '/blog' },
+  { label: 'Contact', to: '/contact' },
 ]
 
 // Accent colour per capability, in order (pills, tiles, check bullets).
@@ -167,10 +169,9 @@ export const PROJECTS = [
   },
 ]
 
-// Only Awo the Musical has a full case-study page so far.
-export const CASE_STUDY_SLUG = 'awo-the-musical'
-export const projectHref = (slug) => (slug === CASE_STUDY_SLUG ? `/projects/${slug}` : '/contact')
-export const projectCta = (slug) => (slug === CASE_STUDY_SLUG ? 'View case study →' : 'Start a similar project →')
+// Every project has a case-study page at /projects/:slug (content in caseStudies.js).
+export const projectHref = (slug) => `/projects/${slug}`
+export const projectCta = () => 'View case study →'
 
 export const TESTIMONIALS = [
   {

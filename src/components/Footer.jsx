@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import logo from '../assets/logo-idis.svg'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
+import { CASE_STUDIES } from '../data/caseStudies'
 
 /**
  * Footer — navy (#132650) card that closes the page.
@@ -20,7 +21,7 @@ const COLUMNS = [
       { label: 'About', href: '/about' },
       { label: 'Services', href: '/services' },
       { label: 'Projects', href: '/projects' },
-      { label: 'Resources', href: '/blog' },
+      { label: 'Journal', href: '/blog' },
       { label: 'Contact', href: '/contact' },
     ],
   },
@@ -32,6 +33,10 @@ const COLUMNS = [
       { label: 'Digital & Experience', href: '/services#digital-experience' },
       { label: 'Performance & AI Marketing', href: '/services#performance-ai' },
     ],
+  },
+  {
+    heading: 'Case studies',
+    links: CASE_STUDIES.map((c) => ({ label: c.nav, href: `/projects/${c.slug}` })),
   },
   {
     heading: 'Get in touch',
@@ -69,14 +74,14 @@ export default function Footer() {
           </Reveal>
 
           {/* Link columns */}
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
             {COLUMNS.map((col, i) => (
               <Reveal
                 key={col.heading}
                 show={inView}
                 delay={150 + i * 100}
                 from="translate-y-8"
-                className={`flex flex-col gap-4 ${col.heading === 'Get in touch' ? 'col-span-2 sm:col-span-1' : ''}`}
+                className={`flex flex-col gap-4 ${col.heading === 'Get in touch' ? 'col-span-2 md:col-span-1' : ''}`}
               >
                 <p className="text-body font-medium text-white/50">{col.heading}</p>
                 <ul className="flex flex-col gap-3">

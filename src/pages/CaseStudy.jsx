@@ -1,44 +1,18 @@
 import { Link, Navigate, useParams } from 'react-router-dom'
-import heroImg from '../assets/projects/awo-hero.webp'
-import heroImgSm from '../assets/projects/awo-hero-sm.webp'
-import ticketsImg from '../assets/projects/awo-tickets.webp'
-import ticketsImgSm from '../assets/projects/awo-tickets-sm.webp'
-import satsImg from '../assets/projects/sats-app.webp'
 import Button from '../components/Button'
 import Cta from '../components/Cta'
 import { Reveal, RevealWords } from '../components/Reveal'
 import { Check, FadeUp, Tag } from '../components/ui'
 import { useInView, useMounted } from '../hooks/scroll'
-import { CASE_STUDY_SLUG, TESTIMONIALS } from '../data/site'
+import { PROJECTS, TESTIMONIALS } from '../data/site'
+import { CASE_STUDIES, caseStudyBySlug } from '../data/caseStudies'
 
-/** Case study — "IDIS — Case Study: Awo the Musical" in the pen.dev file. */
+/**
+ * Case study — "IDIS — Case Study: Awo the Musical" in the pen.dev file,
+ * used as the template for every project at /projects/:slug.
+ */
 
-const META = [
-  ['Client', 'Duke of Shomolu Productions'],
-  ['Industry', 'Theatre, arts & culture'],
-  ['Services', 'Digital strategy, social, paid media, event branding'],
-  ['Markets', 'Lagos & London'],
-]
-
-const RESULTS = [
-  ['2/2', "Shows sold out at London's Shaw Theatre"],
-  ['40%', 'Increase in social media reach'],
-  ['8', 'Productions now promoted across Nigeria & the UK'],
-]
-
-const TACTICS = [
-  ['Story-first positioning', 'We framed Awo as a landmark cultural moment — giving press, partners and fans a reason to talk.', 'bg-pink'],
-  ['Diaspora-led targeting', 'Paid social reached African communities across the UK first, turning them into early advocates.', 'bg-sun'],
-  ['Always-on content engine', 'Rehearsal clips, cast stories and countdowns kept the show in feeds for weeks before opening.', 'bg-mint'],
-  ['Event branding', 'A bold visual system carried from social posts to the theatre foyer for one seamless experience.', 'bg-lime'],
-]
-
-const IMPACT = [
-  ['Sold-out debut', 'Every seat filled across both London performances.'],
-  ['40% more social reach', 'A wider, more engaged audience for this show — and the next one.'],
-  ['A global reputation', 'Duke of Shomolu is now recognised as a serious force in international African theatre.'],
-  ['A lasting partnership', "We've since supported multiple productions across Nigeria and the UK."],
-]
+const ACCENTS = ['bg-pink', 'bg-sun', 'bg-mint', 'bg-lime']
 
 function Block({ num, title, children }) {
   return (
@@ -62,11 +36,16 @@ export default function CaseStudy() {
   const { slug } = useParams()
   const ready = useMounted()
   const [resRef, resIn] = useInView({ threshold: 0.3 })
-  if (slug !== CASE_STUDY_SLUG) return <Navigate to="/projects" replace />
-  const quote = TESTIMONIALS.find((t) => t.author === 'Duke of Shomolu Foundation')
+  const cs = caseStudyBySlug(slug)
+  if (!cs) return <Navigate to="/projects" replace />
+
+  const quote = cs.quoteFrom && TESTIMONIALS.find((t) => t.author === cs.quoteFrom)
+  const next = CASE_STUDIES[(CASE_STUDIES.indexOf(cs) + 1) % CASE_STUDIES.length]
+  const nextProject = PROJECTS.find((p) => p.slug === next.slug)
 
   return (
-    <>
+    // key resets entrance animations when moving between case studies
+    <div key={cs.slug}>
       {/* Intro */}
       <section className="page-shell">
         <div className="content flex flex-col gap-8 pb-10 pt-[clamp(16px,3vw,56px)] md:gap-10 md:pb-14">
@@ -75,18 +54,20 @@ export default function CaseStudy() {
               <span aria-hidden="true">←</span> All projects
             </Link>
             <span className="text-gray-300">/</span>
-            <span className="font-medium text-ink">Duke of Shomolu Productions</span>
+            <span className="font-medium text-ink">{cs.client}</span>
           </Reveal>
           <Reveal show={ready} delay={100} from="translate-y-3" className="flex flex-wrap gap-2">
-            <Tag className="bg-pink text-ink">Campaign</Tag>
-            <Tag className="bg-sun text-ink">Theatre & Culture</Tag>
-            <Tag className="bg-mint text-ink">Nigeria → UK</Tag>
+            {cs.tags.map(([t, c]) => (
+              <Tag key={t} className={`${c} text-ink`}>
+                {t}
+              </Tag>
+            ))}
           </Reveal>
           <h1 className="max-w-[1120px] text-h1 font-semibold text-ink">
-            <RevealWords text="Selling out London's Shaw Theatre for Awo the Musical." show={ready} delay={150} stagger={55} />
+            <RevealWords text={cs.title} show={ready} delay={150} stagger={55} />
           </h1>
           <Reveal show={ready} delay={600} from="translate-y-4" className="grid grid-cols-2 gap-6 border-t border-line pt-8 lg:grid-cols-4 lg:gap-8">
-            {META.map(([k, v]) => (
+            {cs.meta.map(([k, v]) => (
               <div key={k} className="flex flex-col gap-2">
                 <p className="text-[15px] tracking-[0.06em] text-slate uppercase">{k}</p>
                 <p className="text-body-lg font-medium text-ink">{v}</p>
@@ -97,12 +78,12 @@ export default function CaseStudy() {
       </section>
 
       <section className="page-shell">
-        <Reveal show={ready} delay={700} from="translate-y-12 scale-[0.98]" className="overflow-hidden rounded-[24px] bg-pink md:rounded-[40px]">
+        <Reveal show={ready} delay={700} from="translate-y-12 scale-[0.98]" className={`overflow-hidden rounded-[24px] md:rounded-[40px] ${cs.hero.bg}`}>
           <img
-            src={heroImg}
-            srcSet={`${heroImgSm} 800w, ${heroImg} 1400w`}
+            src={cs.hero.src}
+            srcSet={`${cs.hero.sm} 800w, ${cs.hero.src} 1400w`}
             sizes="100vw"
-            alt="Collage of applauding hands and a dancer on a spotlit theatre stage"
+            alt={cs.hero.alt}
             className="aspect-[4/3] w-full object-cover md:aspect-[1336/700]"
           />
         </Reveal>
@@ -114,7 +95,7 @@ export default function CaseStudy() {
           <div ref={resRef} className="rounded-[24px] bg-navy px-5 py-12 md:rounded-[40px] md:px-12 md:py-[72px]">
             <p className="text-center text-body-lg tracking-[0.05em] text-white/70">THE RESULTS AT A GLANCE</p>
             <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-3 md:mt-14">
-              {RESULTS.map(([v, l], i) => (
+              {cs.results.map(([v, l], i) => (
                 <Reveal key={v} show={resIn} delay={i * 140} from="translate-y-10" className="flex flex-col items-center gap-4 text-center text-white">
                   <p className="text-display-sm font-semibold">{v}</p>
                   <p className="max-w-[300px] text-body-lg">{l}</p>
@@ -125,26 +106,16 @@ export default function CaseStudy() {
         </section>
 
         <Block num="01" title="The challenge">
-          <Lead>
-            Awo the Musical had already moved audiences in Nigeria. Now it had to win over London — in a city with
-            thousands of shows competing for the same night out.
-          </Lead>
-          <p className="text-body-lg text-slate">
-            Duke of Shomolu Productions needed more than ticket ads. They needed a campaign that would build cultural
-            buzz before curtain-up, reach both the African diaspora and mainstream theatregoers, and position the
-            production as a must-see moment for African theatre on a global stage.
-          </p>
+          <Lead>{cs.challenge.lead}</Lead>
+          <p className="text-body-lg text-slate">{cs.challenge.body}</p>
         </Block>
 
         <Block num="02" title="Our approach">
-          <Lead>
-            We built the campaign around the story, not the seat. Every touchpoint was designed to make people feel
-            they'd miss something important if they weren't in the room.
-          </Lead>
+          <Lead>{cs.approach.lead}</Lead>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            {TACTICS.map(([t, d, c], i) => (
+            {cs.approach.tactics.map(([t, d], i) => (
               <div key={t} className="flex flex-col gap-4 rounded-[24px] border border-line bg-blush p-7">
-                <span className={`grid size-11 place-items-center rounded-full text-body font-semibold text-ink ${c}`}>{i + 1}</span>
+                <span className={`grid size-11 place-items-center rounded-full text-body font-semibold text-ink ${ACCENTS[i % 4]}`}>{i + 1}</span>
                 <h3 className="text-h5 font-semibold text-ink">{t}</h3>
                 <p className="text-body text-slate">{d}</p>
               </div>
@@ -152,33 +123,43 @@ export default function CaseStudy() {
           </div>
         </Block>
 
-        {/* Gallery + quote */}
+        {/* Gallery + quote (or headline stat) */}
         <section className="page-shell">
           <div className="grid grid-cols-1 gap-4 md:gap-6 lg:grid-cols-[minmax(0,1fr)_460px]">
-            <FadeUp className="overflow-hidden rounded-[24px] bg-sun md:rounded-[40px]">
+            <FadeUp className={`overflow-hidden rounded-[24px] md:rounded-[40px] ${cs.gallery.bg}`}>
               <img
-                src={ticketsImg}
-                srcSet={`${ticketsImgSm} 800w, ${ticketsImg} 1400w`}
+                src={cs.gallery.src}
+                srcSet={`${cs.gallery.sm} 800w, ${cs.gallery.src} 1400w`}
                 sizes="(min-width: 1024px) 65vw, 100vw"
                 loading="lazy"
-                alt="Collage of a theatre ticket and a phone bursting with social media reactions"
-                className="h-full min-h-[320px] w-full object-cover"
+                alt={cs.gallery.alt}
+                className="h-full max-h-[620px] min-h-[320px] w-full object-cover"
               />
             </FadeUp>
-            <FadeUp as="figure" delay={150} className="flex flex-col justify-between gap-12 rounded-[24px] bg-pink p-8 md:rounded-[40px] md:p-11">
-              <span className="text-[96px] font-semibold leading-[0.6] text-ink" aria-hidden="true">“</span>
-              <div className="flex flex-col gap-7">
-                <blockquote className="text-h5 font-medium leading-[1.35] text-ink">{quote.quote}</blockquote>
-                <figcaption className="text-body font-semibold text-ink">{quote.author}</figcaption>
-              </div>
-            </FadeUp>
+            {quote ? (
+              <FadeUp as="figure" delay={150} className="flex flex-col justify-between gap-12 rounded-[24px] bg-pink p-8 md:rounded-[40px] md:p-11">
+                <span className="text-[96px] font-semibold leading-[0.6] text-ink" aria-hidden="true">“</span>
+                <div className="flex flex-col gap-7">
+                  <blockquote className="text-h5 font-medium leading-[1.35] text-ink">{quote.quote}</blockquote>
+                  <figcaption className="text-body font-semibold text-ink">{quote.author}</figcaption>
+                </div>
+              </FadeUp>
+            ) : (
+              <FadeUp delay={150} className="flex flex-col justify-between gap-12 rounded-[24px] bg-sun p-8 md:rounded-[40px] md:p-11">
+                <p className="text-body font-semibold tracking-[0.06em] text-ink/70">THE HEADLINE</p>
+                <div className="flex flex-col gap-4">
+                  <p className="text-display-sm font-semibold text-ink">{cs.highlight[0]}</p>
+                  <p className="text-h5 font-medium leading-[1.35] text-ink">{cs.highlight[1]}</p>
+                </div>
+              </FadeUp>
+            )}
           </div>
         </section>
 
         <Block num="03" title="The impact">
-          <Lead>Both performances at the Shaw Theatre sold out. But the bigger win was what came after.</Lead>
+          <Lead>{cs.impact.lead}</Lead>
           <ul>
-            {IMPACT.map(([t, d]) => (
+            {cs.impact.items.map(([t, d]) => (
               <li key={t} className="grid grid-cols-[36px_minmax(0,1fr)] items-center gap-x-5 gap-y-1 border-b border-line py-6 sm:grid-cols-[36px_240px_minmax(0,1fr)] sm:gap-6">
                 <Check className="bg-brand" stroke="#fff" size={36} />
                 <p className="text-body-lg font-semibold text-ink">{t}</p>
@@ -193,18 +174,20 @@ export default function CaseStudy() {
           <FadeUp className="grid grid-cols-1 items-center gap-8 rounded-[24px] bg-brand p-4 md:rounded-[40px] md:p-6 lg:grid-cols-[minmax(0,1fr)_560px] lg:gap-14">
             <div className="flex flex-col gap-6 p-4 lg:py-6 lg:pl-10">
               <p className="text-body-lg tracking-[0.05em] text-white/70">NEXT PROJECT</p>
-              <p className="text-body-lg font-medium text-sun">Sats App</p>
-              <p className="text-h2 font-semibold text-white">Turning data into higher-quality fintech growth.</p>
-              <Button href="/contact" variant="light" className="w-fit">
-                Talk to us about it →
+              <p className="text-body-lg font-medium text-sun">{next.client}</p>
+              <p className="text-h2 font-semibold text-white">{next.title}</p>
+              <Button href={`/projects/${next.slug}`} variant="light" className="w-fit">
+                Read the case study →
               </Button>
             </div>
-            <img src={satsImg} alt="Collage of a hand holding a phone with a digital wallet" loading="lazy" className="aspect-[560/440] w-full rounded-[20px] object-cover md:rounded-[24px]" />
+            <Link to={`/projects/${next.slug}`} className="overflow-hidden rounded-[20px] md:rounded-[24px]">
+              <img src={nextProject.image} alt="" loading="lazy" className="aspect-[560/440] w-full object-cover transition-transform duration-700 hover:scale-105" />
+            </Link>
           </FadeUp>
         </section>
 
         <Cta />
       </main>
-    </>
+    </div>
   )
 }
