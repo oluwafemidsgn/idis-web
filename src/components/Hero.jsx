@@ -1,5 +1,7 @@
 import { useRef } from 'react'
+import { Link } from 'react-router-dom'
 import Button from './Button'
+import { SERVICES } from '../data/site'
 import { Reveal, RevealWords } from './Reveal'
 import { useMounted, usePrefersReducedMotion, useScrollFrame } from '../hooks/scroll'
 import collage from '../assets/hero-collage.webp'
@@ -9,8 +11,8 @@ import personCenter from '../assets/hero/person-center.webp'
 import personRight from '../assets/hero/person-right.webp'
 
 /**
- * Hero — node 1910:383.
- * A rounded light-pink (#fff5f5) frame holding the headline, subtitle and CTA,
+ * Hero — node 1910:383 (corrected per Homepage V2).
+ * Four numbered capability pills sit above the headline. A rounded light-pink (#fff5f5) frame holding the headline, subtitle and CTA,
  * above a "stage": the collage graphic plus three cut-out portraits
  * (Figma "image 10" left, "image 4" centre, "image 9" right) clipped by the
  * frame's bottom edge.
@@ -65,6 +67,20 @@ export default function Hero() {
       <div className="relative overflow-hidden rounded-[24px] bg-[#fff5f5] pt-12 md:rounded-[40px] md:pt-[80px]">
         {/* Headline block */}
         <div className="relative z-10 mx-auto flex w-[1335px] max-w-full flex-col items-center gap-6 px-4 text-center md:gap-[33px]">
+          {/* The four capabilities as coloured, numbered pills */}
+          <ul className="flex flex-wrap justify-center gap-2 md:gap-[10px]">
+            {SERVICES.map((s, i) => (
+              <Reveal as="li" key={s.slug} show={ready} delay={i * 70} from="translate-y-3 scale-90">
+                <Link
+                  to={`/services#${s.slug}`}
+                  className={`inline-flex items-center gap-2 rounded-full px-[14px] py-2 transition-transform hover:-translate-y-0.5 md:px-[18px] md:py-[10px] ${s.accent}`}
+                >
+                  <span className="text-[11px] font-semibold text-ink/60 md:text-[12px]">{s.num}</span>
+                  <span className="text-[14px] font-semibold tracking-[-0.01em] text-ink md:text-[16px]">{s.title}</span>
+                </Link>
+              </Reveal>
+            ))}
+          </ul>
           <h1 className="text-h1 font-semibold text-ink">
             <RevealWords
               text="Build a marketing system that moves your business forward."

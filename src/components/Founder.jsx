@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import founderPhoto from '../assets/founder/founder-photo.webp'
 import founderPhotoSm from '../assets/founder/founder-photo-sm.webp'
 import founderPhotoMd from '../assets/founder/founder-photo-md.webp'
@@ -10,7 +11,7 @@ import { Reveal, Stagger } from './Reveal'
  * On scroll the card lifts in, the text lines follow one after another and the
  * portrait settles from a slight zoom.
  */
-export default function Founder() {
+export default function Founder({ cta = { label: 'Meet Sidi & the IDIS team →', to: '/about' } }) {
   const [ref, inView] = useInView({ threshold: 0.2 })
   return (
     <section id="about" className="page-shell">
@@ -46,12 +47,12 @@ export default function Founder() {
               </p>
             </div>
 
-            <a
-              href="#contact"
+            <Link
+              to={cta.to}
               className="inline-block rounded-[99px] bg-brand px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-opacity hover:opacity-90"
             >
-              Meet Sidi &amp; the IDIS team →
-            </a>
+              {cta.label}
+            </Link>
           </Stagger>
         </div>
 

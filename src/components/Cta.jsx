@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useInView, usePrefersReducedMotion, useScrollFrame } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 
@@ -27,7 +28,7 @@ export default function Cta() {
   }, !reduced)
 
   return (
-    <section id="contact" className="page-shell">
+    <section id="get-in-touch" className="page-shell">
       <div className="rounded-[24px] bg-brand p-4 md:rounded-[40px] md:p-10 lg:p-[56px]">
         {/* Top two-column intro */}
         <div
@@ -73,12 +74,12 @@ export default function Cta() {
               from="translate-y-6"
               className="flex flex-col items-center gap-4 sm:flex-row sm:justify-center sm:gap-[24px]"
             >
-              <a
-                href="#contact"
+              <Link
+                to="/contact"
                 className="rounded-[99px] bg-brand px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-[opacity,translate] hover:-translate-y-0.5 hover:opacity-90"
               >
                 Start a Conversation →
-              </a>
+              </Link>
               <a
                 href="mailto:Info@idisdigital.com"
                 className="rounded-[99px] border border-[#7b8698] bg-white px-8 py-4 text-body-lg font-medium text-ink transition-[background-color,translate] hover:-translate-y-0.5 hover:bg-[#f7f8fa]"

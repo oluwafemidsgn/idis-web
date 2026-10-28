@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
 import { useInView, useMediaQuery, useScrollFrame } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
@@ -103,12 +104,12 @@ function StackedStep({ step }) {
 
 function TalkButton() {
   return (
-    <a
-      href="#contact"
+    <Link
+      to="/contact"
       className="w-fit shrink-0 rounded-[99px] bg-brand px-8 py-4 text-body-lg font-medium text-white transition-opacity hover:opacity-90"
     >
       Lets talk
-    </a>
+    </Link>
   )
 }
 

@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import { useInView } from '../hooks/scroll'
+import { PROJECTS, projectCta, projectHref } from '../data/site'
 import { Reveal, RevealWords } from './Reveal'
 
 /**
@@ -49,7 +51,12 @@ const CARDS = [
   },
 ]
 
+// Cover art comes from the shared project data (matched by slug).
+const COVERS = Object.fromEntries(PROJECTS.map((p) => [p.slug, p]))
+const SLUGS = ['afrilabs', 'awo-the-musical', 'sats-app', 'africacompare']
+
 function Card({ label, title, desc, stats, index }) {
+  const project = COVERS[SLUGS[index]]
   const [ref, inView] = useInView({ threshold: 0.2 })
   const base = (index % 2) * 150 // stagger the right-hand column
   return (
@@ -58,9 +65,18 @@ function Card({ label, title, desc, stats, index }) {
         show={inView}
         delay={base}
         from="translate-y-12 scale-[0.97]"
-        className="aspect-[809/520] w-full rounded-[24px] bg-[#d9d9d9] md:rounded-[40px]"
-        aria-hidden="true"
-      />
+        className="aspect-[809/520] w-full overflow-hidden rounded-[24px] bg-[#d9d9d9] md:rounded-[40px]"
+      >
+        <img
+          src={project.image}
+          srcSet={`${project.imageSm} 800w, ${project.image} 1400w`}
+          sizes="(min-width: 768px) 50vw, 100vw"
+          loading="lazy"
+          decoding="async"
+          alt={`${project.client} campaign artwork`}
+          className="h-full w-full object-cover transition-transform duration-700 hover:scale-[1.03]"
+        />
+      </Reveal>
       <Reveal
         show={inView}
         delay={base + 200}
@@ -80,12 +96,12 @@ function Card({ label, title, desc, stats, index }) {
             </div>
           ))}
         </div>
-        <a
-          href="#"
-          className="flex w-fit items-start rounded-[99px] bg-ink px-[32px] py-[16px] text-body-lg font-medium whitespace-nowrap text-[#fffbfb]"
+        <Link
+          to={projectHref(project.slug)}
+          className="flex w-fit items-start rounded-[99px] bg-ink px-[32px] py-[16px] text-body-lg font-medium whitespace-nowrap text-[#fffbfb] transition-opacity hover:opacity-90"
         >
-          View Case Study →
-        </a>
+          {projectCta(project.slug)}
+        </Link>
       </Reveal>
     </div>
   )

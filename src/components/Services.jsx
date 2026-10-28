@@ -12,7 +12,9 @@ import performanceAiSm from '../assets/services/performance-ai-sm.webp'
 import performanceAiMd from '../assets/services/performance-ai-md.webp'
 import { useRef } from 'react'
 import { useInView, useMediaQuery, usePrefersReducedMotion, useStackEffect } from '../hooks/scroll'
+import { Link } from 'react-router-dom'
 import { Reveal, RevealWords } from './Reveal'
+import { Check } from './ui'
 
 /**
  * "One partner" services — node 1917:113.
@@ -27,6 +29,8 @@ const ROWS = [
     imageSm: strategyGrowthSm,
     imageMd: strategyGrowthMd,
     imageLeft: true,
+    accent: 'bg-sun',
+    slug: 'strategy-growth',
     title: 'Strategy & Growth',
     desc: [
       "Know where you're going before deciding what to create.",
@@ -49,6 +53,8 @@ const ROWS = [
     imageSm: brandCreativeSm,
     imageMd: brandCreativeMd,
     imageLeft: false,
+    accent: 'bg-pink',
+    slug: 'brand-creative',
     title: 'Brand & Creative',
     desc: [
       'Build a brand people understand, remember and trust.',
@@ -71,6 +77,8 @@ const ROWS = [
     imageSm: digitalExperienceSm,
     imageMd: digitalExperienceMd,
     imageLeft: true,
+    accent: 'bg-lime',
+    slug: 'digital-experience',
     title: 'Digital & Experience',
     desc: [
       'Turn your digital presence into a business asset.',
@@ -93,6 +101,8 @@ const ROWS = [
     imageSm: performanceAiSm,
     imageMd: performanceAiMd,
     imageLeft: false,
+    accent: 'bg-mint',
+    slug: 'performance-ai',
     title: 'Performance & AI Marketing',
     desc: [
       'Measure what matters. Improve what works.',
@@ -158,26 +168,30 @@ function ServiceRow({ row, index, cardRef }) {
           </div>
 
           <div className="flex w-full max-w-[680px] flex-col gap-[clamp(12px,min(2.2vw,2.6vh),40px)]">
-            <p className="text-h3 font-semibold text-ink">{row.title}</p>
-            <div className="text-body-lg font-normal text-[#7b8698] [@media(max-height:780px)]:text-body">
-              {row.desc.map((line) => (
-                <p key={line}>{line}</p>
-              ))}
+            <div className="flex flex-col gap-3">
+              <p className="text-h3 font-semibold text-ink">{row.title}</p>
+              <p className="text-body-lg font-normal text-slate [@media(max-height:780px)]:text-body">{row.desc[0]}</p>
             </div>
-            <div className="flex flex-col gap-[12px]">
-              <p className="text-h5 font-semibold text-ink">Capabilities</p>
-              <ul className="grid grid-cols-1 gap-x-6 text-body-lg font-normal text-[#7b8698] sm:grid-cols-2 [@media(max-height:780px)]:text-body">
+            <div className="flex flex-col gap-2">
+              <p className="text-[14px] font-semibold tracking-[0.1em] text-slate">SERVICES</p>
+              <ul className="flex flex-col">
                 {row.capabilities.map((c) => (
-                  <li key={c}>{c}</li>
+                  <li
+                    key={c}
+                    className="flex items-center gap-[14px] border-t border-line py-[clamp(8px,min(1vw,1.4vh),13px)] text-h5 font-medium text-ink [@media(max-height:780px)]:text-body-lg"
+                  >
+                    <Check className={row.accent} stroke="#040917" size={26} />
+                    {c}
+                  </li>
                 ))}
               </ul>
             </div>
-            <a
-              href="#contact"
+            <Link
+              to={`/services#${row.slug}`}
               className="w-fit rounded-[99px] bg-ink px-8 py-4 text-body-lg font-medium text-[#fffbfb] [@media(max-height:780px)]:py-3 transition-opacity hover:opacity-90"
             >
               {row.cta}
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -207,12 +221,12 @@ export default function Services() {
             <RevealWords text="Four connected capabilities" show={headIn} delay={300} stagger={70} />
           </p>
           <Reveal show={headIn} delay={550} from="translate-y-4 scale-90" className="w-fit">
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="w-fit rounded-[99px] bg-white px-8 py-4 text-body-lg font-medium text-ink transition-opacity hover:opacity-90"
             >
               Lets talk
-            </a>
+            </Link>
           </Reveal>
         </div>
 

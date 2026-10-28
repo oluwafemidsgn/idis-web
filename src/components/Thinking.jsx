@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import { useInView } from '../hooks/scroll'
+import { postHref } from '../data/site'
 import { Reveal, RevealWords } from './Reveal'
 
 /**
@@ -35,6 +37,8 @@ function ArticleCard({ a }) {
   return (
     <Reveal
       ref={ref}
+      as={Link}
+      to={postHref()}
       show={inView}
       from="translate-x-16"
       className="group flex flex-col gap-6 overflow-hidden rounded-[24px] bg-white p-4 sm:flex-row sm:items-center sm:gap-[clamp(20px,2vw,32px)] md:rounded-[32px] md:p-6"
@@ -67,6 +71,14 @@ export default function Thinking() {
           </h2>
           <Reveal as="p" show={headIn} delay={500} from="translate-y-4" className="text-body-lg font-normal text-[#7b8698]">
             We don't just execute marketing. We think deeply about how it is changing.
+          </Reveal>
+          <Reveal show={headIn} delay={650} from="translate-y-4">
+            <Link
+              to="/blog"
+              className="inline-block rounded-[99px] bg-ink px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-opacity hover:opacity-90"
+            >
+              Read the journal →
+            </Link>
           </Reveal>
         </div>
 

@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import logo from '../assets/logo-idis.svg'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
@@ -15,30 +16,33 @@ const COLUMNS = [
   {
     heading: 'Explore',
     links: [
-      { label: 'Home', href: '#home' },
-      { label: 'About', href: '#about' },
-      { label: 'Services', href: '#services' },
-      { label: 'Process', href: '#process' },
-      { label: 'Contact', href: '#contact' },
+      { label: 'Home', href: '/' },
+      { label: 'About', href: '/about' },
+      { label: 'Services', href: '/services' },
+      { label: 'Projects', href: '/projects' },
+      { label: 'Resources', href: '/blog' },
+      { label: 'Contact', href: '/contact' },
     ],
   },
   {
     heading: 'Services',
     links: [
-      { label: 'Strategy & Growth', href: '#services' },
-      { label: 'Brand & Creative', href: '#services' },
-      { label: 'Digital & Experience', href: '#services' },
-      { label: 'Performance & AI Marketing', href: '#services' },
+      { label: 'Strategy & Growth', href: '/services#strategy-growth' },
+      { label: 'Brand & Creative', href: '/services#brand-creative' },
+      { label: 'Digital & Experience', href: '/services#digital-experience' },
+      { label: 'Performance & AI Marketing', href: '/services#performance-ai' },
     ],
   },
   {
     heading: 'Get in touch',
     links: [
       { label: 'Info@idisdigital.com', href: 'mailto:Info@idisdigital.com' },
-      { label: 'Start a Conversation', href: '#contact' },
+      { label: 'Start a Conversation', href: '/contact' },
     ],
   },
 ]
+
+const LINK = 'break-words text-body-lg text-white/90 transition-colors hover:text-white hover:underline hover:underline-offset-4'
 
 export default function Footer() {
   const year = new Date().getFullYear()
@@ -50,18 +54,18 @@ export default function Footer() {
         <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-[clamp(40px,6vw,120px)]">
           {/* Brand + CTA */}
           <Reveal show={inView} from="translate-y-8" className="flex max-w-[480px] flex-col items-start gap-6">
-            <a href="#home" aria-label="IDIS Digital — back to top">
+            <Link to="/" aria-label="IDIS Digital — home">
               <img src={logo} alt="IDIS" className="h-[31px] w-[102px] brightness-0 invert" />
-            </a>
+            </Link>
             <p className="text-h4 font-semibold">
               Build a marketing system that moves your business forward.
             </p>
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="rounded-[99px] bg-brand px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-opacity hover:opacity-90"
             >
               Start a Conversation →
-            </a>
+            </Link>
           </Reveal>
 
           {/* Link columns */}
@@ -78,12 +82,15 @@ export default function Footer() {
                 <ul className="flex flex-col gap-3">
                   {col.links.map((l) => (
                     <li key={l.label}>
-                      <a
-                        href={l.href}
-                        className="break-words text-body-lg text-white/90 transition-colors hover:text-white hover:underline hover:underline-offset-4"
-                      >
-                        {l.label}
-                      </a>
+                      {l.href.startsWith('/') ? (
+                        <Link to={l.href} className={LINK}>
+                          {l.label}
+                        </Link>
+                      ) : (
+                        <a href={l.href} className={LINK}>
+                          {l.label}
+                        </a>
+                      )}
                     </li>
                   ))}
                 </ul>
@@ -95,9 +102,13 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-[clamp(48px,6vw,96px)] flex flex-col gap-3 border-t border-white/15 py-6 text-body text-white/60 sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} IDIS Digital. All rights reserved.</p>
-          <a href="#home" className="transition-colors hover:text-white">
+          <button
+            type="button"
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="w-fit transition-colors hover:text-white"
+          >
             Back to top ↑
-          </a>
+          </button>
         </div>
 
         {/* Oversized wordmark */}
