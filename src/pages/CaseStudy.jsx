@@ -40,6 +40,7 @@ export default function CaseStudy() {
   if (!cs) return <Navigate to="/projects" replace />
 
   const quote = cs.quoteFrom && TESTIMONIALS.find((t) => t.author === cs.quoteFrom)
+  const [challengeLabel, approachLabel, impactLabel] = cs.labels ?? ['The challenge', 'Our approach', 'The impact']
   const next = CASE_STUDIES[(CASE_STUDIES.indexOf(cs) + 1) % CASE_STUDIES.length]
   const nextProject = PROJECTS.find((p) => p.slug === next.slug)
 
@@ -91,26 +92,28 @@ export default function CaseStudy() {
 
       <main className="flex flex-col gap-[clamp(64px,10vw,140px)] py-[clamp(64px,8vw,120px)]">
         {/* Results */}
-        <section className="page-shell">
-          <div ref={resRef} className="rounded-[24px] bg-navy px-5 py-12 md:rounded-[40px] md:px-12 md:py-[72px]">
-            <p className="text-center text-body-lg tracking-[0.05em] text-white/70">THE RESULTS AT A GLANCE</p>
-            <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-3 md:mt-14">
-              {cs.results.map(([v, l], i) => (
-                <Reveal key={v} show={resIn} delay={i * 140} from="translate-y-10" className="flex flex-col items-center gap-4 text-center text-white">
-                  <p className="text-display-sm font-semibold">{v}</p>
-                  <p className="max-w-[300px] text-body-lg">{l}</p>
-                </Reveal>
-              ))}
+        {cs.results && (
+          <section className="page-shell">
+            <div ref={resRef} className="rounded-[24px] bg-navy px-5 py-12 md:rounded-[40px] md:px-12 md:py-[72px]">
+              <p className="text-center text-body-lg tracking-[0.05em] text-white/70">THE RESULTS AT A GLANCE</p>
+              <div className="mt-10 grid grid-cols-1 gap-10 sm:grid-cols-3 md:mt-14">
+                {cs.results.map(([v, l], i) => (
+                  <Reveal key={v} show={resIn} delay={i * 140} from="translate-y-10" className="flex flex-col items-center gap-4 text-center text-white">
+                    <p className="text-display-sm font-semibold">{v}</p>
+                    <p className="max-w-[300px] text-body-lg">{l}</p>
+                  </Reveal>
+                ))}
+              </div>
             </div>
-          </div>
-        </section>
+          </section>
+        )}
 
-        <Block num="01" title="The challenge">
+        <Block num="01" title={challengeLabel}>
           <Lead>{cs.challenge.lead}</Lead>
-          <p className="text-body-lg text-slate">{cs.challenge.body}</p>
+          {cs.challenge.body && <p className="text-body-lg text-slate">{cs.challenge.body}</p>}
         </Block>
 
-        <Block num="02" title="Our approach">
+        <Block num="02" title={approachLabel}>
           <Lead>{cs.approach.lead}</Lead>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             {cs.approach.tactics.map(([t, d], i) => (
@@ -156,14 +159,14 @@ export default function CaseStudy() {
           </div>
         </section>
 
-        <Block num="03" title="The impact">
+        <Block num="03" title={impactLabel}>
           <Lead>{cs.impact.lead}</Lead>
           <ul>
             {cs.impact.items.map(([t, d]) => (
               <li key={t} className="grid grid-cols-[36px_minmax(0,1fr)] items-center gap-x-5 gap-y-1 border-b border-line py-6 sm:grid-cols-[36px_240px_minmax(0,1fr)] sm:gap-6">
                 <Check className="bg-brand" stroke="#fff" size={36} />
-                <p className="text-body-lg font-semibold text-ink">{t}</p>
-                <p className="col-start-2 text-body-lg text-slate sm:col-start-3">{d}</p>
+                <p className={`text-body-lg font-semibold text-ink ${d ? '' : 'sm:col-span-2'}`}>{t}</p>
+                {d && <p className="col-start-2 text-body-lg text-slate sm:col-start-3">{d}</p>}
               </li>
             ))}
           </ul>

@@ -1,11 +1,23 @@
+import aiCollage from '../assets/human-lead/collage.webp'
+import aiCollageSm from '../assets/human-lead/collage-sm.webp'
 import strategyGrowth from '../assets/services/strategy-growth.webp'
 import strategyGrowthSm from '../assets/services/strategy-growth-sm.webp'
 import brandCreative from '../assets/services/brand-creative.webp'
 import brandCreativeSm from '../assets/services/brand-creative-sm.webp'
 import digitalExperience from '../assets/services/digital-experience.webp'
 import digitalExperienceSm from '../assets/services/digital-experience-sm.webp'
-import performanceAi from '../assets/services/performance-ai.webp'
-import performanceAiSm from '../assets/services/performance-ai-sm.webp'
+import socialImg from '../assets/projects/awo-tickets.webp'
+import socialImgSm from '../assets/projects/awo-tickets-sm.webp'
+import seoImg from '../assets/how-we-work/discover.webp'
+import seoImgSm from '../assets/how-we-work/discover-sm.webp'
+import ppcImg from '../assets/how-we-work/define.webp'
+import ppcImgSm from '../assets/how-we-work/define-sm.webp'
+import emailImg from '../assets/services/email.webp'
+import emailImgSm from '../assets/services/email-sm.webp'
+import brandingImg from '../assets/services/branding.webp'
+import brandingImgSm from '../assets/services/branding-sm.webp'
+import analyticsImg from '../assets/how-we-work/measure.webp'
+import analyticsImgSm from '../assets/how-we-work/measure-sm.webp'
 import afrilabs from '../assets/projects/afrilabs.webp'
 import afrilabsSm from '../assets/projects/afrilabs-sm.webp'
 import duke from '../assets/projects/duke-of-shomolu.webp'
@@ -14,6 +26,8 @@ import sats from '../assets/projects/sats-app.webp'
 import satsSm from '../assets/projects/sats-app-sm.webp'
 import africaCompare from '../assets/projects/africacompare.webp'
 import africaCompareSm from '../assets/projects/africacompare-sm.webp'
+import chibok from '../assets/projects/mothers-of-chibok.webp'
+import chibokSm from '../assets/projects/mothers-of-chibok-sm.webp'
 
 /**
  * Shared site content. Copy follows the pen.dev designs
@@ -28,91 +42,34 @@ export const SOCIALS = [
   { label: 'LinkedIn', href: 'https://www.linkedin.com/in/idis-digital-services-b31a27271' },
 ]
 
-// "Projects" also opens a dropdown of every case study (see Nav).
+// "Projects" also opens a dropdown of every Works & Campaigns case study (see Nav).
 export const NAV_LINKS = [
   { label: 'Home', to: '/' },
   { label: 'About', to: '/about' },
   { label: 'Services', to: '/services' },
   { label: 'Projects', to: '/projects', withCaseStudies: true },
-  { label: 'Journal', to: '/blog' },
+  { label: 'Blog', to: '/blog' },
   { label: 'Contact', to: '/contact' },
 ]
 
-// Accent colour per capability, in order (pills, tiles, check bullets).
+// The ten services, presented individually (client feedback, Nov 2026).
+// `accent` colours the number badge and check bullets.
+const svc = (slug, title, desc, accent, image, imageSm) => ({ slug, title, desc, accent, image, imageSm })
 export const SERVICES = [
-  {
-    slug: 'strategy-growth',
-    num: '01',
-    title: 'Strategy & Growth',
-    accent: 'bg-sun',
-    image: strategyGrowth,
-    imageSm: strategyGrowthSm,
-    tagline: "Know where you're going before you spend a cent getting there.",
-    list: [
-      'Marketing strategy',
-      'Brand & market positioning',
-      'Audience & competitor research',
-      'Campaign planning',
-      'Marketing audits',
-      'Go-to-market launches',
-    ],
-    cta: 'Start with strategy',
-  },
-  {
-    slug: 'brand-creative',
-    num: '02',
-    title: 'Brand & Creative',
-    accent: 'bg-pink',
-    image: brandCreative,
-    imageSm: brandCreativeSm,
-    tagline: 'Be the brand people remember, recommend and trust.',
-    list: [
-      'Brand strategy & messaging',
-      'Visual identity systems',
-      'Campaign creative',
-      'Content strategy & production',
-      'Graphic & motion design',
-      'Event & activation branding',
-    ],
-    cta: 'Build your brand',
-  },
-  {
-    slug: 'digital-experience',
-    num: '03',
-    title: 'Digital & Experience',
-    accent: 'bg-lime',
-    image: digitalExperience,
-    imageSm: digitalExperienceSm,
-    tagline: 'Turn every click into a step closer to yes.',
-    list: [
-      'Website strategy & build',
-      'Search engine optimisation',
-      'Social media management',
-      'Email & lifecycle marketing',
-      'Community building',
-      'Experience optimisation',
-    ],
-    cta: 'Upgrade your digital',
-  },
-  {
-    slug: 'performance-ai',
-    num: '04',
-    title: 'Performance & AI',
-    accent: 'bg-mint',
-    image: performanceAi,
-    imageSm: performanceAiSm,
-    tagline: 'Spend smarter. Learn faster. Grow on purpose.',
-    list: [
-      'Paid media & PPC',
-      'Performance marketing',
-      'Analytics & reporting',
-      'Conversion optimisation',
-      'Marketing automation',
-      'AI-enabled workflows',
-    ],
-    cta: 'Boost performance',
-  },
-]
+  svc('ai-powered-marketing', 'AI-Powered Marketing', 'Smarter marketing powered by AI and guided by human expertise. We use intelligent tools, automation, and data-driven insights to improve how brands plan, execute, and optimise their marketing.', 'bg-lime', aiCollage, aiCollageSm),
+  svc('digital-marketing-strategy', 'Digital Marketing Strategy', 'Clear, tailored marketing strategies built around your business objectives, target audience, and growth goals.', 'bg-sun', strategyGrowth, strategyGrowthSm),
+  svc('website-development', 'Website Development', 'High-performing, user-friendly websites designed to strengthen your online presence, communicate your value, and turn visitors into customers.', 'bg-mint', digitalExperience, digitalExperienceSm),
+  svc('content-creation', 'Content Creation', 'Strategic content that captures attention, communicates your message, and gives your audience a reason to engage with your brand.', 'bg-pink', brandCreative, brandCreativeSm),
+  svc('social-media-marketing', 'Social Media Marketing', 'Purpose-driven social media management that builds your brand, grows your audience, and creates opportunities for engagement and conversion.', 'bg-coral', socialImg, socialImgSm),
+  svc('seo', 'Search Engine Optimisation (SEO)', 'Improve your visibility on search engines, attract relevant traffic, and make it easier for potential customers to find your business.', 'bg-sun', seoImg, seoImgSm),
+  svc('ppc-advertising', 'Pay-Per-Click (PPC) Advertising', 'Targeted paid campaigns designed to reach the right audience, maximise your advertising budget, and generate measurable results.', 'bg-mint', ppcImg, ppcImgSm),
+  svc('email-marketing', 'Email Marketing', 'Strategic email campaigns that help you nurture relationships, engage your audience, and turn existing contacts into repeat customers.', 'bg-pink', emailImg, emailImgSm),
+  svc('branding-graphic-design', 'Branding & Graphic Design', 'Thoughtful, consistent design that strengthens your brand identity and helps your business communicate with clarity and confidence.', 'bg-lime', brandingImg, brandingImgSm),
+  svc('analytics-reporting', 'Analytics & Reporting', "Clear, actionable insights that show what's working, where opportunities exist, and how your marketing is contributing to business growth.", 'bg-coral', analyticsImg, analyticsImgSm),
+].map((s, i) => ({ ...s, num: String(i + 1).padStart(2, '0') }))
+
+export const SERVICES_EYEBROW = 'SERVICES WE OFFER'
+export const SERVICES_TITLE = 'Everything Your Business Needs to Grow in a Digital-First World'
 
 export const PROJECTS = [
   {
@@ -167,30 +124,52 @@ export const PROJECTS = [
     image: africaCompare,
     imageSm: africaCompareSm,
   },
+  {
+    slug: 'mothers-of-chibok',
+    client: 'Mothers of Chibok',
+    tag: 'Digital',
+    title: 'Mothers of Chibok × Idis Digital',
+    desc: 'Through digital marketing and website development, we helped build awareness for the documentary and extend its reach beyond the premiere.',
+    results: [
+      ['Digital Promotion', 'Building awareness and audience engagement'],
+      ['Website Development', "Strengthening the documentary's online presence"],
+    ],
+    cta: 'See more →',
+    image: chibok,
+    imageSm: chibokSm,
+  },
 ]
 
 // Every project has a case-study page at /projects/:slug (content in caseStudies.js).
 export const projectHref = (slug) => `/projects/${slug}`
-export const projectCta = () => 'View case study →'
+export const projectCta = (slug) => PROJECTS.find((p) => p.slug === slug)?.cta ?? 'View case study →'
+
+export const TESTIMONIALS_TITLE = 'What our Clients are Saying'
 
 export const TESTIMONIALS = [
+  {
+    author: 'Sats App',
+    accent: 'bg-mint',
+    quote:
+      '“Idis Digital brought a tailored, results-driven approach to our digital presence. Their professionalism, quality of work, and commitment to our goals made them a valuable partner.”',
+  },
   {
     author: 'AfriLabs',
     accent: 'bg-sun',
     quote:
-      '“Working with IDIS felt seamless from the start. They balanced efficiency, professionalism and adaptability, delivering on-brand graphics and videos for AAG 2024 with impressive turnaround times while remaining collaborative and responsive to feedback.”',
-  },
-  {
-    author: 'Mothers of Chibok',
-    accent: 'bg-pink',
-    quote:
-      '“IDIS Digital played an important role in supporting the cinema release of Mothers of Chibok. Their team brought a thoughtful, well-executed approach that helped us build awareness and connect the film with the right audience.”',
+      '“Working with Idis felt seamless from the start. They delivered on-brand graphics and videos for AAG 2024 with impressive turnaround times, while remaining collaborative and responsive to feedback. They understood our vision and brought it to life beautifully.”',
   },
   {
     author: 'Duke of Shomolu Foundation',
-    accent: 'bg-mint',
+    accent: 'bg-pink',
     quote:
-      "“IDIS' dedication, expertise and attention to detail made a real difference throughout the project. Their responsiveness and quality of work were outstanding.”",
+      '“Idis’ dedication, expertise, and attention to detail made a real difference throughout the project. Their responsiveness and quality of work were outstanding, and we sincerely appreciate the value they brought to the partnership.”',
+  },
+  {
+    author: 'Mothers of Chibok',
+    accent: 'bg-lime',
+    quote:
+      '“Idis digital provided a thoughtful and effective approach to our social media management and influencer partnerships. Their tailored service and quality of work made a meaningful difference to our digital presence.”',
   },
 ]
 

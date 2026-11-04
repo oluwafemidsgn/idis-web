@@ -8,6 +8,10 @@ import sats from '../assets/projects/sats-app.webp'
 import satsSm from '../assets/projects/sats-app-sm.webp'
 import africaCompare from '../assets/projects/africacompare.webp'
 import africaCompareSm from '../assets/projects/africacompare-sm.webp'
+import chibok from '../assets/projects/mothers-of-chibok.webp'
+import chibokSm from '../assets/projects/mothers-of-chibok-sm.webp'
+import socialImg from '../assets/projects/awo-tickets.webp'
+import socialImgSm from '../assets/projects/awo-tickets-sm.webp'
 import brandCreative from '../assets/services/brand-creative.webp'
 import brandCreativeSm from '../assets/services/brand-creative-sm.webp'
 import performanceAi from '../assets/services/performance-ai.webp'
@@ -21,8 +25,10 @@ import digitalExperienceSm from '../assets/services/digital-experience-sm.webp'
  * "IDIS — Case Study: Awo the Musical" in the pen.dev file; facts come from
  * the client case studies on the previous idisdigital.co site.
  *
- * `quote` is a client testimonial; studies without one show `highlight`
- * (a headline stat) in the coloured card instead.
+ * `quoteFrom` names a client testimonial; studies without one show
+ * `highlight` (a headline stat) in the coloured card instead. `results`
+ * (the stats band) and impact-item descriptions are optional, and `labels`
+ * can rename the three section headings.
  */
 export const CASE_STUDIES = [
   {
@@ -30,7 +36,7 @@ export const CASE_STUDIES = [
     client: 'AfriLabs',
     nav: 'AfriLabs',
     tags: [
-      ['Brand & Creative', 'bg-pink'],
+      ['Branding & Graphic Design', 'bg-pink'],
       ['Events', 'bg-sun'],
       ['Pan-African', 'bg-mint'],
     ],
@@ -124,7 +130,7 @@ export const CASE_STUDIES = [
     client: 'Sats App',
     nav: 'Sats App',
     tags: [
-      ['Performance & AI', 'bg-mint'],
+      ['Analytics & Reporting', 'bg-mint'],
       ['Fintech', 'bg-sun'],
       ['Data-led', 'bg-lime'],
     ],
@@ -155,7 +161,7 @@ export const CASE_STUDIES = [
       ],
     },
     gallery: { src: performanceAi, sm: performanceAiSm, alt: 'Halftone collage of a hand holding a speedometer', bg: 'bg-navy' },
-    highlight: ['30%', 'more high-quality leads — from a smarter mix, not a bigger budget.'],
+    quoteFrom: 'Sats App',
     impact: {
       lead: 'Better leads, better engagement and a brand customers trust more.',
       items: [
@@ -171,7 +177,7 @@ export const CASE_STUDIES = [
     client: 'AfricaCompare',
     nav: 'AfricaCompare',
     tags: [
-      ['Digital & Experience', 'bg-lime'],
+      ['SEO & Content', 'bg-lime'],
       ['Financial services', 'bg-sun'],
       ['Community', 'bg-pink'],
     ],
@@ -210,6 +216,48 @@ export const CASE_STUDIES = [
         ['A trusted resource', 'Recognised as a reliable source of financial information.'],
         ['Community built', 'Workshops turned visitors into an engaged audience.'],
         ['Thought leadership', 'A stronger position in financial knowledge-sharing.'],
+      ],
+    },
+  },
+  {
+    slug: 'mothers-of-chibok',
+    client: 'Mothers of Chibok',
+    nav: 'Mothers of Chibok',
+    tags: [
+      ['Digital Promotion', 'bg-lime'],
+      ['Website Development', 'bg-mint'],
+      ['Documentary', 'bg-sun'],
+    ],
+    title: 'Amplifying a Powerful Story Through Digital Marketing',
+    meta: [
+      ['Client', 'Mothers of Chibok'],
+      ['Industry', 'Film & documentary'],
+      ['Services', 'Social media, content, promotional campaigns, website development'],
+      ['Focus', 'Awareness before and after the premiere'],
+    ],
+    hero: { src: chibok, sm: chibokSm, alt: 'Collage of a film clapperboard and a phone showing a documentary still', bg: 'bg-blush-200' },
+    labels: ['The Challenge', 'What We Did', 'The Results'],
+    challenge: {
+      lead: 'The documentary needed to build awareness ahead of its premiere and sustain audience interest beyond its release.',
+    },
+    approach: {
+      lead: 'We managed social media, created audience-focused content, and ran promotional campaigns. We also designed and developed a dedicated website to showcase the documentary and its message.',
+      tactics: [
+        ['Social media management', 'Day-to-day channel management around the premiere and beyond.'],
+        ['Audience-focused content', 'Content shaped to connect the story with the people it needed to reach.'],
+        ['Promotional campaigns', 'Campaigns that built anticipation and kept the documentary visible.'],
+        ['A dedicated website', "A home online for the documentary and its message."],
+      ],
+    },
+    gallery: { src: socialImg, sm: socialImgSm, alt: 'Collage of a phone bursting with social media reactions', bg: 'bg-sun' },
+    quoteFrom: 'Mothers of Chibok',
+    impact: {
+      lead: 'Awareness before the premiere — and visibility long after it.',
+      items: [
+        ['Built awareness ahead of the premiere'],
+        ['Sustained digital visibility after release'],
+        ['Developed a dedicated website for the documentary'],
+        ['Created more opportunities for audience engagement'],
       ],
     },
   },

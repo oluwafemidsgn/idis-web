@@ -9,6 +9,7 @@ import { Reveal } from './Reveal'
  * The row is rendered twice back-to-back and slid left by exactly one copy's
  * width, so the loop is seamless. Edges fade out; it pauses on hover and
  * holds still for reduced-motion users. The strip fades up as it enters.
+ * A "Trusted By Leading Brands" heading sits above (client feedback, Nov 2026).
  */
 const LOGOS = Array.from({ length: 12 }, (_, i) => ({
   id: i,
@@ -44,6 +45,9 @@ export default function LogoStrip() {
       className="group relative overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_12%,black_88%,transparent)]"
     >
       <Reveal ref={ref} show={inView} from="translate-y-4">
+        <p className="mb-[clamp(24px,3vw,40px)] text-center text-body-lg font-medium tracking-[0.06em] text-slate uppercase">
+          Trusted By Leading Brands
+        </p>
         <div className="flex w-max animate-[marquee_40s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
           <Row />
           <Row hidden />

@@ -1,239 +1,65 @@
-import strategyGrowth from '../assets/services/strategy-growth.webp'
-import strategyGrowthSm from '../assets/services/strategy-growth-sm.webp'
-import strategyGrowthMd from '../assets/services/strategy-growth-md.webp'
-import brandCreative from '../assets/services/brand-creative.webp'
-import brandCreativeSm from '../assets/services/brand-creative-sm.webp'
-import brandCreativeMd from '../assets/services/brand-creative-md.webp'
-import digitalExperience from '../assets/services/digital-experience.webp'
-import digitalExperienceSm from '../assets/services/digital-experience-sm.webp'
-import digitalExperienceMd from '../assets/services/digital-experience-md.webp'
-import performanceAi from '../assets/services/performance-ai.webp'
-import performanceAiSm from '../assets/services/performance-ai-sm.webp'
-import performanceAiMd from '../assets/services/performance-ai-md.webp'
-import { useRef } from 'react'
-import { useInView, useMediaQuery, usePrefersReducedMotion, useStackEffect } from '../hooks/scroll'
 import { Link } from 'react-router-dom'
+import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
-import { Check } from './ui'
+import { SERVICES, SERVICES_EYEBROW, SERVICES_TITLE } from '../data/site'
 
 /**
- * "One partner" services — node 1917:113.
- * Brand-blue rounded card: an oversized "One partner" heading + subheading row,
- * then four service cards. From lg up each card fills the viewport and pins
- * (sticky) so the next card slides over it; the covered card eases back in
- * scale, giving a stacked-deck effect. Below lg the cards simply flow.
+ * "Services we offer" — brand-blue card listing all ten services
+ * individually (client feedback, Nov 2026: no grouping). Each service is a
+ * white card with its collage thumbnail, number, title and one-line summary,
+ * linking to that service on the Services page. Cards rise in as they enter.
  */
-const ROWS = [
-  {
-    image: strategyGrowth,
-    imageSm: strategyGrowthSm,
-    imageMd: strategyGrowthMd,
-    imageLeft: true,
-    accent: 'bg-sun',
-    slug: 'strategy-growth',
-    title: 'Strategy & Growth',
-    desc: [
-      "Know where you're going before deciding what to create.",
-      'We turn business objectives into focused marketing strategies built around your audience, market and opportunities.',
-      'From research and positioning to campaign planning and growth strategy, we make sure the work starts with the right problem.',
-    ],
-    capabilities: [
-      'Marketing Strategy',
-      'Brand & Market Positioning',
-      'Audience & Competitor Research',
-      'Campaign Strategy',
-      'Marketing Audits',
-      'Growth Planning',
-      'Go-to-Market Support',
-    ],
-    cta: 'Explore Strategy & Growth →',
-  },
-  {
-    image: brandCreative,
-    imageSm: brandCreativeSm,
-    imageMd: brandCreativeMd,
-    imageLeft: false,
-    accent: 'bg-pink',
-    slug: 'brand-creative',
-    title: 'Brand & Creative',
-    desc: [
-      'Build a brand people understand, remember and trust.',
-      "Your brand isn't simply what you look like. It's the system behind how your business communicates.",
-      'We develop identities, messages, campaigns and creative assets that make your brand clearer, stronger and more consistent wherever your audience encounters it.',
-    ],
-    capabilities: [
-      'Brand Strategy',
-      'Visual Identity',
-      'Graphic Design',
-      'Campaign Creative',
-      'Content Strategy',
-      'Content Production',
-      'Event & Activation Branding',
-    ],
-    cta: 'Explore Brand & Creative →',
-  },
-  {
-    image: digitalExperience,
-    imageSm: digitalExperienceSm,
-    imageMd: digitalExperienceMd,
-    imageLeft: true,
-    accent: 'bg-lime',
-    slug: 'digital-experience',
-    title: 'Digital & Experience',
-    desc: [
-      'Turn your digital presence into a business asset.',
-      'We create connected digital experiences that help audiences discover your brand, understand what makes you valuable and take the next step.',
-      'From your website to social, email and search, every touchpoint is designed to play a role in the customer journey.',
-    ],
-    capabilities: [
-      'Website Strategy & Development',
-      'Social Media Marketing',
-      'Search Engine Optimisation',
-      'Email Marketing',
-      'Content Ecosystems',
-      'Community Strategy',
-      'Digital Experience Optimisation',
-    ],
-    cta: 'Explore Digital & Experience →',
-  },
-  {
-    image: performanceAi,
-    imageSm: performanceAiSm,
-    imageMd: performanceAiMd,
-    imageLeft: false,
-    accent: 'bg-mint',
-    slug: 'performance-ai',
-    title: 'Performance & AI Marketing',
-    desc: [
-      'Measure what matters. Improve what works.',
-      'Marketing becomes more valuable when decisions are informed by evidence.',
-      'We combine paid media, analytics, optimisation, automation and AI-enabled workflows to help teams work smarter, identify opportunities and continuously improve performance.',
-    ],
-    capabilities: [
-      'Paid Media & PPC',
-      'Performance Marketing',
-      'Analytics & Reporting',
-      'Conversion Optimisation',
-      'Marketing Automation',
-      'AI-Enabled Marketing',
-      'Testing & Optimisation',
-    ],
-    cta: 'Explore Performance & Intelligence →',
-  },
-]
-
-// Sticky offsets: each card pins a little lower than the one before so the
-// edges of the stack stay visible.
-const STACK_TOP = 24
-const STACK_STEP = 16
-
-function ServiceRow({ row, index, cardRef }) {
-  const [ref, inView] = useInView({ threshold: 0.15 })
+function ServiceCard({ s, index }) {
+  const [ref, inView] = useInView({ threshold: 0.2 })
   return (
-    <div
-      ref={cardRef}
-      className="lg:sticky lg:h-[calc(100svh-var(--stack-top)-24px)] lg:min-h-[560px]"
-      style={{ '--stack-top': `${STACK_TOP + index * STACK_STEP}px`, top: 'var(--stack-top)' }}
-    >
-      <div
-        data-card
-        style={{ scale: 'var(--stack-scale, 1)' }}
-        className="h-full origin-top rounded-[24px] bg-white p-4 shadow-[0_-12px_40px_rgba(4,9,23,0.12)] will-change-transform md:rounded-[40px] md:p-[clamp(28px,2.5vw,48px)]"
+    <Reveal ref={ref} show={inView} delay={(index % 2) * 120} from="translate-y-10">
+      <Link
+        to={`/services#${s.slug}`}
+        className="group flex h-full gap-4 rounded-[24px] bg-white p-3 transition-transform duration-300 hover:-translate-y-1 sm:gap-6 sm:p-4 md:rounded-[32px] md:p-5"
       >
-        <div
-          className={`grid h-full grid-cols-1 gap-8 lg:items-center lg:gap-[clamp(32px,5vw,97px)] ${
-            row.imageLeft
-              ? 'lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1fr)]'
-              : 'lg:grid-cols-[minmax(0,1fr)_minmax(0,0.85fr)]'
-          }`}
-        >
-          <div
-            ref={ref}
-            className={`aspect-[743/706] w-full overflow-hidden rounded-[24px] md:rounded-[32px] lg:max-h-full lg:self-center ${
-              row.imageLeft ? '' : 'lg:order-2'
-            }`}
-          >
-            {/* Image settles from a slight zoom as the card arrives */}
-            <img
-              src={row.image}
-              srcSet={`${row.imageSm} 800w, ${row.imageMd} 1200w, ${row.image} 1400w`}
-              sizes="(min-width: 1024px) 50vw, 100vw"
-              loading="lazy"
-              decoding="async"
-              alt={row.title}
-              className={`h-full w-full object-cover transition-transform duration-[1400ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-100 ${
-                inView ? 'scale-100' : 'scale-115'
-              }`}
-            />
-          </div>
-
-          <div className="flex w-full max-w-[680px] flex-col gap-[clamp(12px,min(2.2vw,2.6vh),40px)]">
-            <div className="flex flex-col gap-3">
-              <p className="text-h3 font-semibold text-ink">{row.title}</p>
-              <p className="text-body-lg font-normal text-slate [@media(max-height:780px)]:text-body">{row.desc[0]}</p>
-            </div>
-            <div className="flex flex-col gap-2">
-              <p className="text-[14px] font-semibold tracking-[0.1em] text-slate">SERVICES</p>
-              <ul className="flex flex-col">
-                {row.capabilities.map((c) => (
-                  <li
-                    key={c}
-                    className="flex items-center gap-[14px] border-t border-line py-[clamp(8px,min(1vw,1.4vh),13px)] text-h5 font-medium text-ink [@media(max-height:780px)]:text-body-lg"
-                  >
-                    <Check className={row.accent} stroke="#040917" size={26} />
-                    {c}
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <Link
-              to={`/services#${row.slug}`}
-              className="w-fit rounded-[99px] bg-ink px-8 py-4 text-body-lg font-medium text-[#fffbfb] [@media(max-height:780px)]:py-3 transition-opacity hover:opacity-90"
-            >
-              {row.cta}
-            </Link>
-          </div>
-        </div>
-      </div>
-    </div>
+        <span className="block aspect-square w-[96px] shrink-0 overflow-hidden rounded-[16px] sm:w-[140px] md:w-[160px] md:rounded-[20px]">
+          <img
+            src={s.imageSm}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
+          />
+        </span>
+        <span className="flex min-w-0 flex-col justify-center gap-2 py-1 md:gap-3">
+          <span className={`w-fit rounded-full px-3 py-1 text-[13px] font-semibold text-ink ${s.accent}`}>{s.num}</span>
+          <span className="text-h4 font-semibold text-ink">{s.title}</span>
+          <span className="text-body text-slate">{s.desc}</span>
+        </span>
+      </Link>
+    </Reveal>
   )
 }
 
 export default function Services() {
-  const cards = useRef([])
   const [headRef, headIn] = useInView({ threshold: 0.4 })
-  const stacking = useMediaQuery('(min-width: 1024px)')
-  const reduced = usePrefersReducedMotion()
-  const animate = stacking && !reduced
-
-  // As card i+1 slides up over card i, card i eases back slightly.
-  useStackEffect(cards, (i) => STACK_TOP + i * STACK_STEP, { enabled: animate })
-
   return (
     <section id="services" className="page-shell">
-      <div className="relative overflow-clip rounded-[24px] bg-brand px-4 pb-10 pt-6 md:rounded-[40px] md:px-[clamp(32px,4vw,64px)] md:pb-[clamp(40px,4vw,72px)] md:pt-[clamp(20px,2.4vw,48px)]">
-        {/* Intro */}
-        <h2 ref={headRef} className="text-display font-semibold text-white">
-          <RevealWords text="One partner" show={headIn} stagger={140} />
-        </h2>
-        <div className="mt-[16px] flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-          <p className="text-h2 font-semibold text-white">
-            <RevealWords text="Four connected capabilities" show={headIn} delay={300} stagger={70} />
-          </p>
-          <Reveal show={headIn} delay={550} from="translate-y-4 scale-90" className="w-fit">
-            <Link
-              to="/contact"
-              className="w-fit rounded-[99px] bg-white px-8 py-4 text-body-lg font-medium text-ink transition-opacity hover:opacity-90"
-            >
-              Lets talk
+      <div className="rounded-[24px] bg-brand px-3 pb-3 pt-10 md:rounded-[40px] md:px-[clamp(24px,3vw,56px)] md:pb-[clamp(24px,3vw,56px)] md:pt-[clamp(48px,5vw,88px)]">
+        <div ref={headRef} className="flex flex-col gap-6 px-2 md:flex-row md:items-end md:justify-between md:px-0">
+          <div className="flex max-w-[900px] flex-col gap-4">
+            <Reveal as="p" show={headIn} from="translate-y-4" className="text-body-lg tracking-[0.05em] text-white/75">
+              {SERVICES_EYEBROW}
+            </Reveal>
+            <h2 className="text-h2 font-semibold text-white">
+              <RevealWords text={SERVICES_TITLE} show={headIn} delay={100} stagger={50} />
+            </h2>
+          </div>
+          <Reveal show={headIn} delay={450} from="translate-y-4 scale-90" className="flex shrink-0 flex-wrap gap-3">
+            <Link to="/services" className="rounded-[99px] bg-white px-8 py-4 text-body-lg font-medium text-ink transition-opacity hover:opacity-90">
+              All services →
             </Link>
           </Reveal>
         </div>
 
-        {/* Stacked cards */}
-        <div className="mt-[clamp(32px,4vw,72px)] flex flex-col gap-10 lg:gap-[24vh]">
-          {ROWS.map((row, i) => (
-            <ServiceRow key={row.title} row={row} index={i} cardRef={(el) => (cards.current[i] = el)} />
+        <div className="mt-[clamp(32px,4vw,64px)] grid grid-cols-1 gap-3 lg:grid-cols-2 lg:gap-5">
+          {SERVICES.map((s, i) => (
+            <ServiceCard key={s.slug} s={s} index={i} />
           ))}
         </div>
       </div>

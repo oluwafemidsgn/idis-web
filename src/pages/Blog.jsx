@@ -9,7 +9,7 @@ import { ArrowUpRight, FadeUp, Sparkle, Tag } from '../components/ui'
 import { useMounted } from '../hooks/scroll'
 import { POSTS, postHref } from '../data/site'
 
-/** Blog listing — "IDIS — Blog" in the pen.dev file. */
+/** Blog listing — "IDIS — Blog" in the pen.dev file (renamed from Journal). */
 
 const TABS = ['All posts', 'Strategy', 'Brand', 'AI & Tech', 'Community', 'Performance']
 const PER_PAGE = 7
@@ -35,7 +35,7 @@ export default function Blog() {
           <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
             <div className="flex items-start gap-4">
               <h1 className="text-display font-semibold leading-[0.85] text-ink">
-                <RevealWords text="Journal" show={ready} />
+                <RevealWords text="Blog" show={ready} />
               </h1>
               <Reveal show={ready} delay={300} from="scale-50 rotate-45">
                 <Sparkle className="size-[clamp(36px,5.5vw,80px)] text-coral" strokeWidth={2} />

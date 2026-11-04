@@ -108,7 +108,7 @@ function TalkButton() {
       to="/contact"
       className="w-fit shrink-0 rounded-[99px] bg-brand px-8 py-4 text-body-lg font-medium text-white transition-opacity hover:opacity-90"
     >
-      Lets talk
+      Let’s talk
     </Link>
   )
 }

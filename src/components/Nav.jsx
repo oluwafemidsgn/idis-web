@@ -9,10 +9,10 @@ import { CASE_STUDIES } from '../data/caseStudies'
 
 /**
  * Top navigation — a centered cluster (logo · links · CTA) on desktop.
- * "Projects" opens a dropdown of every case study on hover or keyboard focus.
+ * "Projects" opens a dropdown of every Works & Campaigns case study on hover or keyboard focus.
  * Below lg the links collapse into a menu button that opens a floating
  * panel, with the case studies listed under Projects. The current page's
- * link is brand-blue and semibold (blog posts count as Journal, case studies
+ * link is brand-blue and semibold (blog posts count as Blog, case studies
  * as Projects).
  */
 const isActive = (to, path) => (to === '/' ? path === '/' : path.startsWith(to))
@@ -33,7 +33,7 @@ function ProjectsMenu({ active }) {
       {/* pt bridges the gap so the panel stays open while the pointer moves down */}
       <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-4 opacity-0 transition-[opacity,visibility] duration-200 group-hover/menu:visible group-hover/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:opacity-100">
         <div className="w-[320px] rounded-[24px] bg-white p-3 shadow-[0_24px_48px_rgba(4,9,23,0.14)]">
-          <p className="px-3 pb-2 pt-1 text-[13px] font-semibold tracking-[0.1em] text-slate">CASE STUDIES</p>
+          <p className="px-3 pb-2 pt-1 text-[13px] font-semibold tracking-[0.1em] text-slate">WORKS &amp; CAMPAIGNS</p>
           {CASE_STUDIES.map((c) => (
             <NavLink
               key={c.slug}
@@ -92,7 +92,7 @@ export default function Nav() {
 
         <div className="flex items-center gap-3">
           <Button variant="blue" href="/contact" className="px-5! py-3! sm:px-8! sm:py-4!">
-            Lets talk
+            Let’s talk
           </Button>
           <button
             type="button"

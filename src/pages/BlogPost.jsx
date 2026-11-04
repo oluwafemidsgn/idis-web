@@ -59,7 +59,7 @@ export default function BlogPost() {
         <div className="mx-auto flex max-w-[1080px] flex-col items-center gap-8 pb-12 pt-[clamp(16px,4vw,64px)] text-center md:pb-14">
           <Reveal show={ready} from="translate-y-3" className="flex items-center gap-3 text-body text-slate">
             <Link to="/blog" className="transition-colors hover:text-ink">
-              Journal
+              Blog
             </Link>
             <span className="text-gray-300">›</span>
             <Tag className="bg-lime text-ink">AI & Tech</Tag>

@@ -5,7 +5,7 @@ import Cta from '../components/Cta'
 import { Reveal, RevealWords } from '../components/Reveal'
 import { FadeUp, RevealHeading, Sparkle } from '../components/ui'
 import { useMounted } from '../hooks/scroll'
-import { PROJECTS, TESTIMONIALS, projectCta, projectHref } from '../data/site'
+import { PROJECTS, TESTIMONIALS, TESTIMONIALS_TITLE, projectCta, projectHref } from '../data/site'
 
 /** Projects — "IDIS — Projects" in the pen.dev file. */
 
@@ -97,7 +97,7 @@ export default function Projects() {
               <RevealWords text="Work" show={ready} />
             </h1>
             <Reveal show={ready} delay={300} from="translate-y-4 scale-90" className="shrink-0">
-              <span className="inline-block rounded-full bg-brand px-4 py-2 text-body font-semibold text-white md:px-5">04 case studies</span>
+              <span className="inline-block rounded-full bg-brand px-4 py-2 text-body font-semibold text-white md:px-5">{String(PROJECTS.length).padStart(2, '0')} works &amp; campaigns</span>
             </Reveal>
           </div>
           <Reveal show={ready} delay={400} from="translate-y-6" className="flex max-w-[440px] flex-col gap-7 lg:pb-4">
@@ -161,8 +161,8 @@ export default function Projects() {
         {/* Testimonials */}
         <section className="page-shell">
           <div className="rounded-[24px] bg-brand p-4 pt-12 md:rounded-[40px] md:p-12 md:pt-[88px]">
-            <RevealHeading text="Good partnerships leave evidence." className="max-w-[640px] px-2 text-h2 font-semibold text-white md:px-4" />
-            <div className="mt-10 grid grid-cols-1 gap-4 md:mt-14 lg:grid-cols-3 lg:gap-5">
+            <RevealHeading text={TESTIMONIALS_TITLE} className="max-w-[760px] px-2 text-h2 font-semibold text-white md:px-4" />
+            <div className="mt-10 grid grid-cols-1 gap-4 md:mt-14 lg:grid-cols-2 lg:gap-5">
               {TESTIMONIALS.map((t, i) => (
                 <FadeUp key={t.author} as="figure" delay={i * 120} className="flex flex-col gap-7 rounded-[24px] bg-white p-7 md:p-8">
                   <div className="flex items-center gap-5">

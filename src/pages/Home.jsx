@@ -6,14 +6,16 @@ import Alignment from '../components/Alignment'
 import Services from '../components/Services'
 import Works from '../components/Works'
 import Stats from '../components/Stats'
-import HowWeWork from '../components/HowWeWork'
 import HumanLead from '../components/HumanLead'
 import WhyIdis from '../components/WhyIdis'
 import Founder from '../components/Founder'
 import Thinking from '../components/Thinking'
 import Cta from '../components/Cta'
 
-/** Homepage — section order follows "IDIS — Homepage V2 (Video + Services-forward)". */
+/**
+ * Homepage — section order follows "IDIS — Homepage V2 (Video + Services-forward)";
+ * the "How we work" section was removed per client feedback (Nov 2026).
+ */
 export default function Home() {
   return (
     <>
@@ -26,7 +28,6 @@ export default function Home() {
         <Services />
         <Works />
         <Stats />
-        <HowWeWork />
         <HumanLead />
         <WhyIdis />
         <Founder />

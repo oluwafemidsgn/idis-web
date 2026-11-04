@@ -1,34 +1,19 @@
 import { useRef } from 'react'
 import { usePrefersReducedMotion, useInView, useStackEffect } from '../hooks/scroll'
+import { TESTIMONIALS, TESTIMONIALS_TITLE } from '../data/site'
 
 /**
  * Testimonials — node 1931:17052.
- * Brand-blue card: an oversized "Testimonials" word, heading, then the three
+ * Brand-blue card: a large "What our Clients are Saying" heading (client
+ * feedback, Nov 2026), then the client
  * quote cards as a sticky stack — each card pins a little lower than the last,
  * so as you scroll they pile up on one another (slightly tilted, like cards on
  * a table, with the covered ones easing back) before the section leaves the
  * frame. Avatar circles are solid peach (#f4a57e), as authored in Figma.
  */
-const CARDS = [
-  {
-    quote:
-      '“Working with IDIS felt seamless from the start. They balanced efficiency, professionalism and adaptability, delivering on-brand graphics and videos for AAG 2024 with impressive turnaround times while remaining collaborative and responsive to feedback.”',
-    author: 'AfriLabs',
-    tilt: -2,
-  },
-  {
-    quote:
-      '“IDIS Digital played an important role in supporting the cinema release of Mothers of Chibok. Their team brought a thoughtful, well-executed approach that helped us build awareness and connect the film with the right audience.”',
-    author: 'Mothers of Chibok',
-    tilt: 1.5,
-  },
-  {
-    quote:
-      "“IDIS' dedication, expertise and attention to detail made a real difference throughout the project. Their responsiveness and quality of work were outstanding.”",
-    author: 'Duke of Shomolu Foundation',
-    tilt: -0.5,
-  },
-]
+// Client quotes live in the shared site data; each card gets a slight tilt.
+const TILTS = [-2, 1.5, -0.5, 1]
+const CARDS = TESTIMONIALS.map((t, i) => ({ ...t, tilt: TILTS[i % TILTS.length] }))
 
 // Sticky offsets (px): each card pins STEP below the previous one.
 const TOP = 96
@@ -51,21 +36,12 @@ export default function Testimonials() {
     <section className="page-shell">
       {/* overflow-clip (not hidden) so the sticky cards pin to the viewport */}
       <div className="relative h-auto w-full overflow-clip rounded-[24px] bg-brand p-4 md:rounded-[40px] md:p-10 lg:p-[64px]">
-        {/* Oversized section word */}
-        <p
-          ref={headRef}
-          aria-hidden="true"
-          className={`pointer-events-none select-none whitespace-nowrap text-center text-display font-semibold text-white max-[400px]:text-[12.5vw] ${reveal(headIn)} ${headIn ? '' : 'scale-95'}`}
-        >
-          Testimonials
-        </p>
-
         {/* Heading */}
         <h2
-          style={{ transitionDelay: '150ms' }}
-          className={`relative z-10 mx-auto mt-[clamp(12px,2vw,33px)] max-w-[569px] text-center text-h2 font-semibold text-white ${reveal(headIn)}`}
+          ref={headRef}
+          className={`relative z-10 mx-auto max-w-[1100px] text-center text-display-sm font-semibold text-white ${reveal(headIn)}`}
         >
-          Good partnerships leave evidence.
+          {TESTIMONIALS_TITLE}
         </h2>
 
         {/* Sticky card stack */}

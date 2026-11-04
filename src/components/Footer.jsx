@@ -3,14 +3,14 @@ import logo from '../assets/logo-idis.svg'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 import { CASE_STUDIES } from '../data/caseStudies'
+import { EMAIL, SERVICES } from '../data/site'
 
 /**
  * Footer — navy (#132650) card that closes the page.
- * Brand block + CTA on the left, three link columns on the right, a bottom bar
- * with copyright + back-to-top, and an oversized "IDIS Digital" wordmark that
- * bleeds off the card's bottom edge.
- * All copy is reused from elsewhere on the page (nav, services, contact).
- * On scroll the brand block and link columns rise in turn and the wordmark
+ * The logo on its own (client feedback, Nov 2026), four link columns, a bottom
+ * bar with copyright + back-to-top, and an oversized "IDIS Digital" wordmark
+ * that bleeds off the card's bottom edge.
+ * On scroll the logo and link columns rise in turn and the wordmark
  * slides up out of the bottom edge.
  */
 const COLUMNS = [
@@ -21,28 +21,23 @@ const COLUMNS = [
       { label: 'About', href: '/about' },
       { label: 'Services', href: '/services' },
       { label: 'Projects', href: '/projects' },
-      { label: 'Journal', href: '/blog' },
+      { label: 'Blog', href: '/blog' },
       { label: 'Contact', href: '/contact' },
     ],
   },
   {
-    heading: 'Services',
-    links: [
-      { label: 'Strategy & Growth', href: '/services#strategy-growth' },
-      { label: 'Brand & Creative', href: '/services#brand-creative' },
-      { label: 'Digital & Experience', href: '/services#digital-experience' },
-      { label: 'Performance & AI Marketing', href: '/services#performance-ai' },
-    ],
+    heading: 'Works & Campaigns',
+    links: CASE_STUDIES.map((c) => ({ label: c.nav, href: `/projects/${c.slug}` })),
   },
   {
-    heading: 'Case studies',
-    links: CASE_STUDIES.map((c) => ({ label: c.nav, href: `/projects/${c.slug}` })),
+    heading: 'Services',
+    links: SERVICES.map((s) => ({ label: s.title, href: `/services#${s.slug}` })),
   },
   {
     heading: 'Get in touch',
     links: [
-      { label: 'Info@idisdigital.com', href: 'mailto:Info@idisdigital.com' },
-      { label: 'Start a Conversation', href: '/contact' },
+      { label: EMAIL, href: `mailto:${EMAIL}` },
+      { label: 'Contact us', href: '/contact' },
     ],
   },
 ]
@@ -56,32 +51,23 @@ export default function Footer() {
   return (
     <footer className="page-shell">
       <div ref={ref} className="relative overflow-hidden rounded-[24px] bg-[#132650] px-5 pt-10 text-white md:rounded-[40px] md:px-[clamp(40px,4vw,64px)] md:pt-[clamp(48px,5vw,80px)]">
-        <div className="grid grid-cols-1 gap-12 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] lg:gap-[clamp(40px,6vw,120px)]">
-          {/* Brand + CTA */}
-          <Reveal show={inView} from="translate-y-8" className="flex max-w-[480px] flex-col items-start gap-6">
-            <Link to="/" aria-label="IDIS Digital — home">
-              <img src={logo} alt="IDIS" className="h-[31px] w-[102px] brightness-0 invert" />
-            </Link>
-            <p className="text-h4 font-semibold">
-              Build a marketing system that moves your business forward.
-            </p>
-            <Link
-              to="/contact"
-              className="rounded-[99px] bg-brand px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-opacity hover:opacity-90"
-            >
-              Start a Conversation →
+        <div className="flex flex-col gap-12 md:gap-16">
+          {/* Logo */}
+          <Reveal show={inView} from="translate-y-8">
+            <Link to="/" aria-label="IDIS Digital — home" className="inline-block">
+              <img src={logo} alt="IDIS" className="h-[31px] w-[102px] brightness-0 invert md:h-[41px] md:w-[136px]" />
             </Link>
           </Reveal>
 
           {/* Link columns */}
-          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-4">
+          <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-[1fr_1.2fr_1.4fr_1.2fr] md:gap-x-10">
             {COLUMNS.map((col, i) => (
               <Reveal
                 key={col.heading}
                 show={inView}
                 delay={150 + i * 100}
                 from="translate-y-8"
-                className={`flex flex-col gap-4 ${col.heading === 'Get in touch' ? 'col-span-2 md:col-span-1' : ''}`}
+                className={`flex flex-col gap-4 ${col.heading === 'Get in touch' || col.heading === 'Services' ? 'col-span-2 md:col-span-1' : ''}`}
               >
                 <p className="text-body font-medium text-white/50">{col.heading}</p>
                 <ul className="flex flex-col gap-3">

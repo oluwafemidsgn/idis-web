@@ -4,7 +4,8 @@ import { PROJECTS, projectCta, projectHref } from '../data/site'
 import { Reveal, RevealWords } from './Reveal'
 
 /**
- * Works & Campaign — heading + intro then a 2x2 grid of 4 case-study cards.
+ * Works & Campaign — heading + intro then a 2x2 grid of case-study cards,
+ * followed by a full-width Mothers of Chibok card (client feedback, Nov 2026).
  * Figma fileKey ahIhjZnPngc6EQrR5X7weh, node-id 1925-5604.
  * Card image frames (1924:3029/3030/3032/3034) are empty #d9d9d9 placeholders
  * in the Figma source — reproduced as gray rounded blocks (see caveats).
@@ -49,18 +50,31 @@ const CARDS = [
       { value: 'Integrated', caption: 'SEO, content, email and community', w: 'w-[323px]' },
     ],
   },
+  {
+    label: 'MOTHERS OF CHIBOK',
+    title: 'Mothers of Chibok × Idis Digital',
+    desc: 'Through digital marketing and website development, we helped build awareness for the documentary and extend its reach beyond the premiere.',
+    stats: [
+      { value: 'Digital Promotion', caption: 'Building awareness and audience engagement' },
+      { value: 'Website Development', caption: "Strengthening the documentary's online presence" },
+    ],
+    wide: true,
+  },
 ]
 
 // Cover art comes from the shared project data (matched by slug).
 const COVERS = Object.fromEntries(PROJECTS.map((p) => [p.slug, p]))
-const SLUGS = ['afrilabs', 'awo-the-musical', 'sats-app', 'africacompare']
+const SLUGS = ['afrilabs', 'awo-the-musical', 'sats-app', 'africacompare', 'mothers-of-chibok']
 
-function Card({ label, title, desc, stats, index }) {
+function Card({ label, title, desc, stats, index, wide }) {
   const project = COVERS[SLUGS[index]]
   const [ref, inView] = useInView({ threshold: 0.2 })
   const base = (index % 2) * 150 // stagger the right-hand column
   return (
-    <div ref={ref} className="flex w-full flex-col gap-[clamp(24px,2.5vw,48px)]">
+    <div
+      ref={ref}
+      className={`flex w-full flex-col gap-[clamp(24px,2.5vw,48px)] ${wide ? 'md:col-span-2 lg:grid lg:grid-cols-2 lg:items-center lg:gap-x-[clamp(24px,3vw,46px)]' : ''}`}
+    >
       <Reveal
         show={inView}
         delay={base}
@@ -124,7 +138,7 @@ export default function Works() {
             </Reveal>
           </div>
 
-          {/* 2x2 grid */}
+          {/* 2x2 grid + one wide card */}
           <div className="mt-[clamp(48px,6vw,120px)] grid grid-cols-1 gap-x-[clamp(24px,3vw,46px)] gap-y-[clamp(56px,6vw,80px)] md:grid-cols-2">
             {CARDS.map((c, i) => (
               <Card key={c.label} index={i} {...c} />

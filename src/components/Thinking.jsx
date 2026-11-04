@@ -77,7 +77,7 @@ export default function Thinking() {
               to="/blog"
               className="inline-block rounded-[99px] bg-ink px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-opacity hover:opacity-90"
             >
-              Read the journal →
+              Read the blog →
             </Link>
           </Reveal>
         </div>

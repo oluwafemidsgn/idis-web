@@ -6,7 +6,7 @@ import { useInView } from '../hooks/scroll'
 import { Reveal, Stagger } from './Reveal'
 
 /**
- * Meet the Founder — node 1925:5029.
+ * Meet the Founder — node 1925:5029, copy per client feedback (Nov 2026).
  * Dark-navy (#132650) card: left text column, right composed portrait.
  * On scroll the card lifts in, the text lines follow one after another and the
  * portrait settles from a slight zoom.
@@ -32,20 +32,20 @@ export default function Founder({ cta = { label: 'Meet Sidi & the IDIS team →'
             </div>
 
             <p className="text-body-lg font-normal">
-              For more than 15 years, Sidi has worked across sales, marketing, business development
-              and brand strategy — helping organisations turn ideas, opportunities and marketing
-              activity into business growth.
+              Sidi is the Founder and Lead Marketing Consultant at Idis Digital, with more than 15 years of
+              experience across sales, marketing, business development, and brand strategy.
             </p>
 
-            <div className="text-body-lg font-normal">
-              <p>She founded IDIS Digital around a simple belief:</p>
-              <p>Marketing works better when it understands the business first.</p>
-              <p>
-                Today, she leads IDIS's strategic work across positioning, brand development,
-                digital strategy, campaigns and growth — combining commercial thinking with a deep
-                understanding of how modern brands need to communicate and compete.
-              </p>
-            </div>
+            <p className="text-body-lg font-normal">
+              She founded Idis to help businesses move beyond disconnected marketing activities and build strategies
+              that support real business growth. Her experience spans new business development, brand positioning,
+              rebranding, digital strategy, and the development of effective digital experiences.
+            </p>
+
+            <p className="text-body-lg font-normal">
+              Today, she leads Idis in helping businesses make smarter marketing decisions, strengthen their market
+              presence, and turn opportunities into measurable results.
+            </p>
 
             <Link
               to={cta.to}

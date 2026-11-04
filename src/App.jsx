@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Nav from './components/Nav'
 import Footer from './components/Footer'
+import StickyCta from './components/StickyCta'
 import Home from './pages/Home'
 import About from './pages/About'
 import Services from './pages/Services'
@@ -14,11 +15,11 @@ import NotFound from './pages/NotFound'
 import { caseStudyBySlug } from './data/caseStudies'
 
 const TITLES = {
-  '/': 'IDIS Digital — Build a marketing system that moves your business forward',
+  '/': 'IDIS Digital — Expert Digital Marketing Services',
   '/about': 'About — IDIS Digital',
   '/services': 'Services — IDIS Digital',
   '/projects': 'Projects — IDIS Digital',
-  '/blog': 'Journal — IDIS Digital',
+  '/blog': 'Blog — IDIS Digital',
   '/contact': 'Contact — IDIS Digital',
 }
 
@@ -29,7 +30,7 @@ function RouteEffects() {
     document.title =
       TITLES[pathname] ??
       (pathname.startsWith('/projects/')
-        ? `${caseStudyBySlug(pathname.split('/')[2])?.nav ?? 'Case study'} — Case Study — IDIS Digital`
+        ? `${caseStudyBySlug(pathname.split('/')[2])?.nav ?? 'Case study'} — Works & Campaigns — IDIS Digital`
         : pathname.startsWith('/blog/')
           ? 'AI is a production accelerator — IDIS Digital'
           : 'IDIS Digital')
@@ -60,6 +61,7 @@ export default function App() {
       <div className="pb-[clamp(24px,3vw,52px)]">
         <Footer />
       </div>
+      <StickyCta />
     </div>
   )
 }
