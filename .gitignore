@@ -1,7 +1,12 @@
 node_modules
 dist
+.next
 .DS_Store
 *.log
+
+# Local database and secrets
+data/*.db*
+.env*.local
 
 # Local tooling / scratch output
 .playwright-mcp/

@@ -1,4 +1,6 @@
-import { Link } from 'react-router-dom'
+'use client'
+
+import { Link } from '@/lib/router'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 import { SERVICES, SERVICES_EYEBROW, SERVICES_TITLE } from '../data/site'

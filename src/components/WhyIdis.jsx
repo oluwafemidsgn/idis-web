@@ -1,4 +1,6 @@
-import sparkle from '../assets/human-lead/ai-magic.svg'
+'use client'
+
+const sparkle = '/assets/human-lead/ai-magic.svg'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 

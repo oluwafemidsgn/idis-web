@@ -1,7 +1,9 @@
-import aiMagic from '../assets/human-lead/ai-magic.svg'
-import collage from '../assets/human-lead/collage.webp'
-import collageSm from '../assets/human-lead/collage-sm.webp'
-import collageMd from '../assets/human-lead/collage-md.webp'
+'use client'
+
+const aiMagic = '/assets/human-lead/ai-magic.svg'
+const collage = '/assets/human-lead/collage.webp'
+const collageSm = '/assets/human-lead/collage-sm.webp'
+const collageMd = '/assets/human-lead/collage-md.webp'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 

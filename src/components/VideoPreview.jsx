@@ -1,6 +1,8 @@
+'use client'
+
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
-import poster from '../assets/pages/showreel-poster.webp'
+import { Link } from '@/lib/router'
+const poster = '/assets/pages/showreel-poster.webp'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 

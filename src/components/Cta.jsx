@@ -1,5 +1,7 @@
+'use client'
+
 import { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from '@/lib/router'
 import { useInView, usePrefersReducedMotion, useScrollFrame } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 

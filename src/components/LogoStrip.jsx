@@ -1,4 +1,6 @@
-import idisMark from '../assets/logos/idis-mark.svg'
+'use client'
+
+const idisMark = '/assets/logos/idis-mark.svg'
 import { useInView } from '../hooks/scroll'
 import { Reveal } from './Reveal'
 

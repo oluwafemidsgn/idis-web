@@ -1,3 +1,5 @@
+'use client'
+
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 

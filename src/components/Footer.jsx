@@ -1,8 +1,9 @@
-import { Link } from 'react-router-dom'
-import logo from '../assets/logo-idis.svg'
+'use client'
+
+import { Link } from '@/lib/router'
+const logo = '/assets/logo-idis.svg'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
-import { CASE_STUDIES } from '../data/caseStudies'
 import { EMAIL, SERVICES } from '../data/site'
 
 /**
@@ -27,7 +28,7 @@ const COLUMNS = [
   },
   {
     heading: 'Works & Campaigns',
-    links: CASE_STUDIES.map((c) => ({ label: c.nav, href: `/projects/${c.slug}` })),
+    links: [], // filled from the published case studies
   },
   {
     heading: 'Services',
@@ -44,7 +45,10 @@ const COLUMNS = [
 
 const LINK = 'break-words text-body-lg text-white/90 transition-colors hover:text-white hover:underline hover:underline-offset-4'
 
-export default function Footer() {
+export default function Footer({ works = [] }) {
+  const columns = COLUMNS.map((col) =>
+    col.heading === 'Works & Campaigns' ? { ...col, links: works.map((c) => ({ label: c.nav, href: `/projects/${c.slug}` })) } : col,
+  )
   const year = new Date().getFullYear()
   const [ref, inView] = useInView({ threshold: 0.15 })
 
@@ -61,7 +65,7 @@ export default function Footer() {
 
           {/* Link columns */}
           <nav aria-label="Footer" className="grid grid-cols-2 gap-x-6 gap-y-10 md:grid-cols-[1fr_1.2fr_1.4fr_1.2fr] md:gap-x-10">
-            {COLUMNS.map((col, i) => (
+            {columns.map((col, i) => (
               <Reveal
                 key={col.heading}
                 show={inView}

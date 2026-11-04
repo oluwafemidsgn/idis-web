@@ -1,7 +1,9 @@
+'use client'
+
 import Button from './Button'
-import visual from '../assets/alignment/alignment-visual.webp'
-import visualSm from '../assets/alignment/alignment-visual-sm.webp'
-import visualMd from '../assets/alignment/alignment-visual-md.webp'
+const visual = '/assets/alignment/alignment-visual.webp'
+const visualSm = '/assets/alignment/alignment-visual-sm.webp'
+const visualMd = '/assets/alignment/alignment-visual-md.webp'
 import { useInView } from '../hooks/scroll'
 import { Reveal, RevealWords } from './Reveal'
 

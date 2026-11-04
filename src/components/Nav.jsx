@@ -1,11 +1,12 @@
+'use client'
+
 import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
-import logo from '../assets/logo-idis.svg'
+import { Link, NavLink, useLocation } from '@/lib/router'
+const logo = '/assets/logo-idis.svg'
 import Button from './Button'
 import { Reveal } from './Reveal'
 import { useMounted } from '../hooks/scroll'
 import { NAV_LINKS } from '../data/site'
-import { CASE_STUDIES } from '../data/caseStudies'
 
 /**
  * Top navigation — a centered cluster (logo · links · CTA) on desktop.
@@ -17,7 +18,7 @@ import { CASE_STUDIES } from '../data/caseStudies'
  */
 const isActive = (to, path) => (to === '/' ? path === '/' : path.startsWith(to))
 
-function ProjectsMenu({ active }) {
+function ProjectsMenu({ active, works }) {
   return (
     <div className="group/menu relative">
       <NavLink
@@ -34,7 +35,7 @@ function ProjectsMenu({ active }) {
       <div className="invisible absolute left-1/2 top-full z-50 -translate-x-1/2 pt-4 opacity-0 transition-[opacity,visibility] duration-200 group-hover/menu:visible group-hover/menu:opacity-100 group-focus-within/menu:visible group-focus-within/menu:opacity-100">
         <div className="w-[320px] rounded-[24px] bg-white p-3 shadow-[0_24px_48px_rgba(4,9,23,0.14)]">
           <p className="px-3 pb-2 pt-1 text-[13px] font-semibold tracking-[0.1em] text-slate">WORKS &amp; CAMPAIGNS</p>
-          {CASE_STUDIES.map((c) => (
+          {works.map((c) => (
             <NavLink
               key={c.slug}
               to={`/projects/${c.slug}`}
@@ -58,7 +59,7 @@ function ProjectsMenu({ active }) {
   )
 }
 
-export default function Nav() {
+export default function Nav({ works = [] }) {
   const ready = useMounted()
   const { pathname } = useLocation()
   const [open, setOpen] = useState(false)
@@ -77,7 +78,7 @@ export default function Nav() {
           {NAV_LINKS.map((l) => (
             <li key={l.label}>
               {l.withCaseStudies ? (
-                <ProjectsMenu active={isActive(l.to, pathname)} />
+                <ProjectsMenu active={isActive(l.to, pathname)} works={works} />
               ) : (
                 <NavLink
                   to={l.to}
@@ -130,7 +131,7 @@ export default function Nav() {
               </NavLink>
               {l.withCaseStudies && (
                 <ul className="mb-1 ml-4 flex flex-col border-l border-line pl-2">
-                  {CASE_STUDIES.map((c) => (
+                  {works.map((c) => (
                     <li key={c.slug}>
                       <NavLink
                         to={`/projects/${c.slug}`}

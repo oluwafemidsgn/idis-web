@@ -1,7 +1,9 @@
-import { Link } from 'react-router-dom'
-import founderPhoto from '../assets/founder/founder-photo.webp'
-import founderPhotoSm from '../assets/founder/founder-photo-sm.webp'
-import founderPhotoMd from '../assets/founder/founder-photo-md.webp'
+'use client'
+
+import { Link } from '@/lib/router'
+const founderPhoto = '/assets/founder/founder-photo.webp'
+const founderPhotoSm = '/assets/founder/founder-photo-sm.webp'
+const founderPhotoMd = '/assets/founder/founder-photo-md.webp'
 import { useInView } from '../hooks/scroll'
 import { Reveal, Stagger } from './Reveal'
 

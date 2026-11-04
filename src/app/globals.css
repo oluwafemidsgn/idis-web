@@ -1,0 +1,166 @@
+@import url('https://api.fontshare.com/v2/css?f[]=general-sans@200,300,400,500,600,700&display=swap');
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette (from Figma) */
+  --color-brand: #275fe8;
+  --color-ink: #040917;
+  --color-mist: #e5e7ea;
+  --color-paper: #ffffff;
+  --color-navy: #132650;
+  --color-slate: #7b8698;
+  --color-line: #e5e7ea;
+  --color-gray-300: #b3b9c4;
+  --color-blush: #fffbfb;
+  --color-blush-200: #fff5f5;
+  --color-peach: #f4a57e;
+
+  /* Illustration accents (from the pen.dev design system) */
+  --color-sun: #ffce31;
+  --color-pink: #ff61c5;
+  --color-coral: #f0613c;
+  --color-leaf: #208204;
+  --color-lime: #adff85;
+  --color-mint: #95fbcb;
+  --color-grape: #882de1;
+  --color-raspberry: #d72a65;
+
+
+  /* ── Type scale ───────────────────────────────────────────────
+     One fluid scale for the whole site. Each step interpolates
+     linearly from its min size at a 360px viewport to its design
+     size at 1920px, then holds. Use these instead of text-[..]. */
+  --text-display: clamp(48px, 14vw, 300px);              /* oversized statement words */
+  --text-display--line-height: 0.95;
+  --text-display--letter-spacing: -0.04em;
+  --text-display-sm: clamp(40px, 22.2px + 4.94vw, 117px); /* CTA headline (128 in Figma) */
+  --text-display-sm--line-height: 1;
+  --text-display-sm--letter-spacing: -0.03em;
+  --text-h1: clamp(38px, 25.5px + 3.46vw, 92px);         /* hero (96 in Figma) */
+  --text-h1--line-height: 1.02;
+  --text-h1--letter-spacing: -0.03em;
+  --text-h2: clamp(30px, 22.6px + 2.05vw, 62px);         /* section titles (64) */
+  --text-h2--line-height: 1.05;
+  --text-h2--letter-spacing: -0.03em;
+  --text-h3: clamp(24px, 20.3px + 1.03vw, 40px);         /* card titles */
+  --text-h3--line-height: 1.1;
+  --text-h3--letter-spacing: -0.03em;
+  --text-h4: clamp(21px, 18.5px + 0.7vw, 32px);
+  --text-h4--line-height: 1.15;
+  --text-h4--letter-spacing: -0.02em;
+  --text-h5: clamp(19px, 17.8px + 0.32vw, 24px);
+  --text-h5--line-height: 1.2;
+  --text-h5--letter-spacing: -0.02em;
+  --text-body-lg: clamp(16px, 15.1px + 0.26vw, 20px);    /* default copy, buttons, nav */
+  --text-body-lg--line-height: 1.5;
+  --text-body: clamp(15px, 14.3px + 0.19vw, 18px);
+  --text-body--line-height: 1.6;
+
+  --font-sans: "General Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-ink);
+  background: var(--color-paper);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* The design is authored at 1920px. Each section renders inside .page-shell
+   which centers content and applies a side gutter that shrinks on small screens
+   (56px on desktop down to 12px on phones). */
+.page-shell {
+  width: 100%;
+  max-width: 1920px;
+  margin-inline: auto;
+  padding-inline: clamp(12px, 3.6vw, 56px);
+}
+
+/* Inner content of a full-width section keeps the 1807px design cap but stays
+   fluid below it. */
+.content-cap {
+  width: 100%;
+  max-width: 1807px;
+  margin-inline: auto;
+}
+
+/* Text content of inner (non-card) sections — the 1440 design's 110px inset,
+   capped so long lines stay readable on wide screens. */
+.content {
+  width: 100%;
+  max-width: 1500px;
+  margin-inline: auto;
+  padding-inline: clamp(4px, 3.2vw, 58px);
+}
+
+/* Headings wrap into evenly balanced lines instead of leaving a lone word
+   on the last line; body copy avoids single-word orphans. */
+h1, h2, h3,
+.text-display, .text-display-sm, .text-h1, .text-h2, .text-h3, .text-h4, .text-h5 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@keyframes twinkle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(12deg) scale(1.06); }
+}
+
+/* Blog post body (Markdown from /admin), styled like the "IDIS — Blog Post" design. */
+.article-body {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  font-size: var(--text-body-lg);
+  line-height: 1.7;
+  color: #3a4254;
+}
+.article-body > p:first-child {
+  font-size: var(--text-h5);
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--color-ink);
+}
+.article-body h2,
+.article-body h3 {
+  scroll-margin-top: 32px;
+  font-weight: 600;
+  color: var(--color-ink);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.article-body h2 { font-size: var(--text-h4); padding-top: 8px; }
+.article-body h3 { font-size: var(--text-h5); }
+.article-body strong { color: var(--color-ink); font-weight: 600; }
+.article-body a { color: var(--color-brand); text-decoration: underline; text-underline-offset: 4px; }
+.article-body ul,
+.article-body ol { display: flex; flex-direction: column; gap: 10px; padding-left: 1.4em; }
+.article-body ul { list-style: disc; }
+.article-body ol { list-style: decimal; }
+.article-body li::marker { color: var(--color-brand); }
+.article-body blockquote {
+  border-radius: 24px;
+  background: var(--color-brand);
+  padding: clamp(28px, 4vw, 40px);
+  color: #fff;
+  font-size: var(--text-h4);
+  font-weight: 600;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+.article-body blockquote p { color: inherit; font-size: inherit; font-weight: inherit; }
+.article-body img { width: 100%; border-radius: 24px; }
+.article-body hr { border: 0; border-top: 1px solid var(--color-line); }

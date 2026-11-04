@@ -1,6 +1,8 @@
+'use client'
+
 import { useRef } from 'react'
 import { usePrefersReducedMotion, useInView, useStackEffect } from '../hooks/scroll'
-import { TESTIMONIALS, TESTIMONIALS_TITLE } from '../data/site'
+import { TESTIMONIALS_TITLE } from '../data/site'
 
 /**
  * Testimonials — node 1931:17052.
@@ -11,9 +13,8 @@ import { TESTIMONIALS, TESTIMONIALS_TITLE } from '../data/site'
  * a table, with the covered ones easing back) before the section leaves the
  * frame. Avatar circles are solid peach (#f4a57e), as authored in Figma.
  */
-// Client quotes live in the shared site data; each card gets a slight tilt.
+// Each card gets a slight tilt, cycling through these.
 const TILTS = [-2, 1.5, -0.5, 1]
-const CARDS = TESTIMONIALS.map((t, i) => ({ ...t, tilt: TILTS[i % TILTS.length] }))
 
 // Sticky offsets (px): each card pins STEP below the previous one.
 const TOP = 96
@@ -25,7 +26,8 @@ const reveal = (shown) =>
     shown ? 'translate-y-0 scale-100 opacity-100' : 'translate-y-16 opacity-0'
   }`
 
-export default function Testimonials() {
+export default function Testimonials({ items = [] }) {
+  const CARDS = items.map((t, i) => ({ ...t, tilt: TILTS[i % TILTS.length] }))
   const [headRef, headIn] = useInView({ threshold: 0.3 })
   const cards = useRef([])
   const reduced = usePrefersReducedMotion()

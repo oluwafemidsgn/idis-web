@@ -1,3 +1,5 @@
+'use client'
+
 import { useRef, useState } from 'react'
 import { useInView, usePrefersReducedMotion, useScrollFrame } from '../hooks/scroll'
 import { Reveal } from './Reveal'

@@ -1,13 +1,14 @@
+'use client'
+
 import { useRef } from 'react'
 import Button from './Button'
 import { Reveal, RevealWords } from './Reveal'
 import { useMounted, usePrefersReducedMotion, useScrollFrame } from '../hooks/scroll'
-import collage from '../assets/hero-collage.webp'
-import collageSm from '../assets/hero-collage-sm.webp'
-import personLeft from '../assets/hero/person-left.webp'
-import personCenter from '../assets/hero/person-center.webp'
-import personRight from '../assets/hero/person-right.webp'
-
+const collage = '/assets/hero-collage.webp'
+const collageSm = '/assets/hero-collage-sm.webp'
+const personLeft = '/assets/hero/person-left.webp'
+const personCenter = '/assets/hero/person-center.webp'
+const personRight = '/assets/hero/person-right.webp'
 /**
  * Hero — node 1910:383, copy per client feedback (Nov 2026).
  * A rounded light-pink (#fff5f5) frame holding the headline and CTA,
