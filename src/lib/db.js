@@ -71,6 +71,34 @@ async function applySchema() {
         published INTEGER NOT NULL DEFAULT 1
       )`,
       `CREATE TABLE IF NOT EXISTS login_attempts (ip TEXT NOT NULL, attempted_at INTEGER NOT NULL)`,
+      // Engagement analytics for blog posts and case studies (kind = 'post' | 'case').
+      // `visitor` is an anonymous random id kept in the reader's browser.
+      `CREATE TABLE IF NOT EXISTS visits (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        kind TEXT NOT NULL,
+        slug TEXT NOT NULL,
+        visitor TEXT NOT NULL,
+        started_at INTEGER NOT NULL,
+        max_scroll INTEGER NOT NULL DEFAULT 0,
+        finished INTEGER NOT NULL DEFAULT 0,
+        seconds INTEGER NOT NULL DEFAULT 0
+      )`,
+      `CREATE INDEX IF NOT EXISTS visits_item ON visits (kind, slug, started_at)`,
+      `CREATE TABLE IF NOT EXISTS likes (
+        kind TEXT NOT NULL,
+        slug TEXT NOT NULL,
+        visitor TEXT NOT NULL,
+        created_at INTEGER NOT NULL,
+        PRIMARY KEY (kind, slug, visitor)
+      )`,
+      `CREATE TABLE IF NOT EXISTS shares (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        kind TEXT NOT NULL,
+        slug TEXT NOT NULL,
+        channel TEXT NOT NULL,
+        created_at INTEGER NOT NULL
+      )`,
+      `CREATE INDEX IF NOT EXISTS shares_item ON shares (kind, slug, created_at)`,
     ],
     'write',
   )

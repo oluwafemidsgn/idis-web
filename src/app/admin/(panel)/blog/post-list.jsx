@@ -24,7 +24,7 @@ export default function PostList({ posts }) {
               <span className="flex min-w-0 flex-1 flex-col">
                 <span className="truncate text-[15px] font-semibold text-ink">{p.title}</span>
                 <span className="text-[13px] text-slate">
-                  {p.category} · {p.publishedAt}
+                  {p.category} · {p.publishedAt} · {p.views} views · {p.likes} likes
                 </span>
               </span>
               {p.featured && <span className="hidden rounded-full bg-sun px-3 py-1 text-[12px] font-semibold sm:inline">Featured</span>}

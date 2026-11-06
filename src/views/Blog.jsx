@@ -6,6 +6,7 @@ import Newsletter from '../components/Newsletter'
 import { Reveal, RevealWords } from '../components/Reveal'
 import { ArrowUpRight, FadeUp, Sparkle, Tag } from '../components/ui'
 import { useMounted } from '../hooks/scroll'
+import { Eye, HeartSmall } from '../components/Engagement'
 
 /** Blog listing — "IDIS — Blog" in the pen.dev file (renamed from Journal). */
 
@@ -15,6 +16,20 @@ const SIDE_COLOURS = ['bg-pink', 'bg-mint']
 const DOTS = { Strategy: 'bg-sun', Brand: 'bg-brand', 'AI & Tech': 'bg-lime', Community: 'bg-pink', Performance: 'bg-coral' }
 
 const postHref = (p) => `/blog/${p.slug}`
+
+/** Small "👁 120  ♥ 8" counters for a post. */
+const Stats = ({ p, className = 'text-slate' }) => (
+  <span className={`inline-flex items-center gap-3 text-[14px] font-medium ${className}`}>
+    <span className="inline-flex items-center gap-1">
+      <Eye className="size-4" />
+      {p.views ?? 0}
+    </span>
+    <span className="inline-flex items-center gap-1">
+      <HeartSmall className="size-3.5 text-pink" />
+      {p.likes ?? 0}
+    </span>
+  </span>
+)
 const fmtDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
 
 /** `posts` — published posts from the database, featured first then newest. */
@@ -85,6 +100,7 @@ export default function Blog({ posts = [] }) {
                     <span className="text-[15px] text-white/80">
                       {lead.date} · {lead.mins} min read
                     </span>
+                    <Stats p={lead} className="text-white/80" />
                   </span>
                   <span className="text-h2 font-semibold text-white">{lead.title}</span>
                   {lead.excerpt && <span className="max-w-[640px] text-body-lg text-white/80">{lead.excerpt}</span>}
@@ -100,8 +116,9 @@ export default function Blog({ posts = [] }) {
                         )}
                       </span>
                       <span className="flex flex-col gap-2 px-2 pb-2">
-                        <span className="text-[15px] font-medium text-ink/70">
+                        <span className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[15px] font-medium text-ink/70">
                           {p.cat} · {p.date}
+                          <Stats p={p} className="text-ink/70" />
                         </span>
                         <span className="text-h5 font-semibold text-ink">{p.title}</span>
                       </span>
@@ -129,7 +146,10 @@ export default function Blog({ posts = [] }) {
                   >
                     <span className="text-[15px] text-slate md:order-none">{p.date}</span>
                     <span className={`hidden size-4 rounded-full md:block ${p.dot}`} />
-                    <span className="col-start-1 text-h5 font-semibold text-ink md:col-start-auto">{p.title}</span>
+                    <span className="col-start-1 flex flex-col gap-1.5 md:col-start-auto">
+                      <span className="text-h5 font-semibold text-ink">{p.title}</span>
+                      <Stats p={p} />
+                    </span>
                     <span className="hidden justify-end md:flex">
                       <span className="rounded-full border border-line bg-white px-4 py-2 text-[14px] font-medium text-ink">{p.cat}</span>
                     </span>

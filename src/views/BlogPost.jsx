@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useRef } from 'react'
 import { Link } from '@/lib/router'
 import Newsletter from '../components/Newsletter'
+import { EngageBar, useReadTracking } from '../components/Engagement'
 import { Reveal, RevealWords } from '../components/Reveal'
 import { FadeUp, Tag } from '../components/ui'
 import { useMounted } from '../hooks/scroll'
@@ -17,22 +18,11 @@ const CATEGORY_TAG = { Strategy: 'bg-sun', Brand: 'bg-pink', 'AI & Tech': 'bg-li
 const RELATED_BG = ['bg-sun', 'bg-pink', 'bg-mint']
 const fmtDate = (iso) => new Date(`${iso}T00:00:00`).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
 
-export default function BlogPost({ post, html, toc = [], related = [] }) {
+export default function BlogPost({ post, html, toc = [], related = [], counts = { views: 0, likes: 0 } }) {
   const ready = useMounted()
-  const [copied, setCopied] = useState(false)
-  const [url, setUrl] = useState('')
-  useEffect(() => setUrl(window.location.href), [])
-
-  const share = [
-    ['LinkedIn', `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, 'in'],
-    ['X', `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(post.title)}`, '𝕏'],
-    ['Facebook', `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, 'f'],
-  ]
-  const copy = () => {
-    navigator.clipboard?.writeText(url)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 1800)
-  }
+  const articleRef = useRef(null)
+  useReadTracking('post', post.slug, articleRef)
+  const engage = { kind: 'post', slug: post.slug, title: post.title, views: counts.views, likes: counts.likes }
 
   return (
     <>
@@ -54,11 +44,14 @@ export default function BlogPost({ post, html, toc = [], related = [] }) {
               {post.excerpt}
             </Reveal>
           )}
-          <Reveal show={ready} delay={650} from="translate-y-4" className="text-left">
-            <span className="block text-body font-semibold text-ink">{post.author}</span>
-            <span className="block text-[15px] text-slate">
-              {fmtDate(post.publishedAt)} · {post.readMins} min read
+          <Reveal show={ready} delay={650} from="translate-y-4" className="flex flex-col items-center gap-5">
+            <span className="text-center">
+              <span className="block text-body font-semibold text-ink">{post.author}</span>
+              <span className="block text-[15px] text-slate">
+                {fmtDate(post.publishedAt)} · {post.readMins} min read
+              </span>
             </span>
+            <EngageBar {...engage} className="justify-center" />
           </Reveal>
         </div>
       </section>
@@ -88,22 +81,19 @@ export default function BlogPost({ post, html, toc = [], related = [] }) {
                   </nav>
                 )}
                 <div className="flex flex-col gap-4">
-                  <p className="text-[14px] font-semibold tracking-[0.1em] text-slate">SHARE</p>
-                  <div className="flex gap-[10px]">
-                    {share.map(([name, href, glyph]) => (
-                      <a key={name} href={href} target="_blank" rel="noreferrer" aria-label={`Share on ${name}`} className="grid size-11 place-items-center rounded-full bg-blush-200 text-body font-semibold text-ink transition-colors hover:bg-ink hover:text-white">
-                        {glyph}
-                      </a>
-                    ))}
-                    <button type="button" onClick={copy} aria-label="Copy link" className="grid size-11 place-items-center rounded-full bg-blush-200 text-ink transition-colors hover:bg-ink hover:text-white">
-                      {copied ? '✓' : '🔗'}
-                    </button>
-                  </div>
+                  <p className="text-[14px] font-semibold tracking-[0.1em] text-slate">ENJOYING THIS?</p>
+                  <EngageBar {...engage} />
                 </div>
               </div>
             </aside>
 
-            <article className="article-body" dangerouslySetInnerHTML={{ __html: html }} />
+            <div className="flex flex-col gap-10">
+              <article ref={articleRef} className="article-body" dangerouslySetInnerHTML={{ __html: html }} />
+              <div className="flex flex-col gap-4 rounded-[24px] bg-blush-200 p-6 sm:flex-row sm:items-center sm:justify-between md:p-7">
+                <p className="text-h5 font-semibold text-ink">Found this useful? Like it or pass it on.</p>
+                <EngageBar {...engage} />
+              </div>
+            </div>
           </div>
         </section>
 

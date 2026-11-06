@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { listPosts } from '@/lib/content'
+import { getCountsMap } from '@/lib/analytics'
 import PostList from './post-list'
 
 export default async function BlogAdmin() {
-  const posts = (await listPosts({ all: true })).map(({ body, ...p }) => p)
+  const [all, counts] = await Promise.all([listPosts({ all: true }), getCountsMap('post')])
+  const posts = all.map(({ body, ...p }) => ({ ...p, ...(counts[p.slug] ?? { views: 0, likes: 0 }) }))
   return (
     <div className="flex max-w-[1100px] flex-col gap-6 pb-12">
       <div className="flex flex-wrap items-end justify-between gap-4">

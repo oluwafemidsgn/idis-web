@@ -1,9 +1,10 @@
 import Link from 'next/link'
 import { listCaseStudies } from '@/lib/content'
+import { getCountsMap } from '@/lib/analytics'
 import { moveCaseStudyAction } from '../../actions'
 
 export default async function WorksAdmin() {
-  const works = await listCaseStudies({ all: true })
+  const [works, counts] = await Promise.all([listCaseStudies({ all: true }), getCountsMap('case')])
   return (
     <div className="flex max-w-[1100px] flex-col gap-6 pb-12">
       <div className="flex flex-wrap items-end justify-between gap-4">
@@ -39,6 +40,9 @@ export default async function WorksAdmin() {
               <span className="flex min-w-0 flex-1 flex-col">
                 <span className="truncate text-[15px] font-semibold text-ink">{w.nav || w.client}</span>
                 <span className="truncate text-[13px] text-slate">{w.card.title || w.title}</span>
+                <span className="text-[12px] text-slate">
+                  {counts[w.slug]?.views ?? 0} views · {counts[w.slug]?.likes ?? 0} likes
+                </span>
               </span>
               <span className={`shrink-0 rounded-full px-3 py-1 text-[12px] font-semibold ${w.published ? 'bg-leaf/10 text-leaf' : 'bg-gray-300/40 text-slate'}`}>
                 {w.published ? 'Live' : 'Hidden'}

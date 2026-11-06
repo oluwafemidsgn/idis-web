@@ -1,8 +1,10 @@
 'use client'
 
+import { useRef } from 'react'
 import { Link } from '@/lib/router'
 import Button from '../components/Button'
 import Cta from '../components/Cta'
+import { EngageBar, useReadTracking } from '../components/Engagement'
 import { Reveal, RevealWords } from '../components/Reveal'
 import { Check, FadeUp, Tag } from '../components/ui'
 import { useInView, useMounted } from '../hooks/scroll'
@@ -33,8 +35,11 @@ function Block({ num, title, children }) {
 const Lead = ({ children }) => <p className="text-h5 font-medium leading-[1.4] text-ink">{children}</p>
 
 /** `cs` is the case study, `next` the one after it, `quote` its client testimonial (if any). */
-export default function CaseStudy({ cs, next, quote }) {
+export default function CaseStudy({ cs, next, quote, counts = { views: 0, likes: 0 } }) {
   const ready = useMounted()
+  const bodyRef = useRef(null)
+  useReadTracking('case', cs.slug, bodyRef)
+  const engage = { kind: 'case', slug: cs.slug, title: cs.title || cs.client, views: counts.views, likes: counts.likes }
   const [resRef, resIn] = useInView({ threshold: 0.3 })
   const [challengeLabel, approachLabel, impactLabel] = ['The challenge', 'Our approach', 'The impact'].map((d, i) => cs.labels?.[i] || d)
   const hasResults = cs.results?.length > 0
@@ -72,6 +77,9 @@ export default function CaseStudy({ cs, next, quote }) {
               </div>
             ))}
           </Reveal>
+          <Reveal show={ready} delay={680} from="translate-y-4">
+            <EngageBar {...engage} />
+          </Reveal>
         </div>
       </section>
 
@@ -88,6 +96,7 @@ export default function CaseStudy({ cs, next, quote }) {
       )}
 
       <main className="flex flex-col gap-[clamp(64px,10vw,140px)] py-[clamp(64px,8vw,120px)]">
+        <div ref={bodyRef} className="flex flex-col gap-[clamp(64px,10vw,140px)]">
         {/* Results */}
         {hasResults && (
           <section className="page-shell">
@@ -168,6 +177,18 @@ export default function CaseStudy({ cs, next, quote }) {
             ))}
           </ul>
         </Block>
+
+        </div>
+
+        {/* Like / share */}
+        <section className="page-shell">
+          <div className="content">
+            <FadeUp className="flex flex-col items-start gap-4 rounded-[24px] bg-blush-200 p-6 sm:flex-row sm:items-center sm:justify-between md:p-8">
+              <p className="text-h5 font-semibold text-ink">Enjoyed this case study? Like it or share it.</p>
+              <EngageBar {...engage} />
+            </FadeUp>
+          </div>
+        </section>
 
         {/* Next project */}
         {next && next.slug !== cs.slug && (

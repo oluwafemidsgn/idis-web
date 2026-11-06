@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import CaseStudy from '@/views/CaseStudy'
 import { getCaseStudyBySlug, listCaseStudies, listTestimonials } from '@/lib/content'
+import { getCounts } from '@/lib/analytics'
 
 export async function generateMetadata({ params }) {
   const cs = await getCaseStudyBySlug((await params).slug)
@@ -14,5 +15,6 @@ export default async function CaseStudyPage({ params }) {
   const i = all.findIndex((c) => c.slug === cs.slug)
   const next = all.length > 1 ? all[(i + 1) % all.length] : null
   const quote = cs.quoteFrom ? (testimonials.find((t) => t.author === cs.quoteFrom) ?? null) : null
-  return <CaseStudy cs={cs} next={next} quote={quote} />
+  const counts = await getCounts('case', cs.slug)
+  return <CaseStudy cs={cs} next={next} quote={quote} counts={counts} />
 }

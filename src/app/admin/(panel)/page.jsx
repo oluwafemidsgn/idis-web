@@ -1,9 +1,11 @@
 import Link from 'next/link'
 import { listCaseStudies, listPosts, listTestimonials } from '@/lib/content'
 import { logoutAction } from '../actions'
+import { getTotals } from '@/lib/analytics'
+import { StatTile, fmtTime } from '../_components/charts'
 
 export default async function Overview() {
-  const [posts, works, testimonials] = await Promise.all([listPosts({ all: true }), listCaseStudies({ all: true }), listTestimonials({ all: true })])
+  const [posts, works, testimonials, t] = await Promise.all([listPosts({ all: true }), listCaseStudies({ all: true }), listTestimonials({ all: true }), getTotals(30)])
   const cards = [
     ['Blog posts', posts.filter((p) => p.published).length, `${posts.filter((p) => !p.published).length} drafts`, '/admin/blog', '/admin/blog/new', 'New post', 'bg-sun'],
     ['Works & Campaigns', works.filter((w) => w.published).length, `${works.filter((w) => !w.published).length} hidden`, '/admin/works', '/admin/works/new', 'New case study', 'bg-pink'],
@@ -28,6 +30,21 @@ export default async function Overview() {
             </Link>
           </div>
         ))}
+      </div>
+      <div className="flex flex-col gap-3">
+        <div className="flex items-end justify-between gap-3">
+          <h2 className="text-[19px] font-semibold">Last 30 days</h2>
+          <Link href="/admin/analytics" className="text-[14px] font-medium text-brand">Full analytics →</Link>
+        </div>
+        <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-6">
+          <StatTile label="Views" value={t.views.toLocaleString()} />
+          <StatTile label="Readers" value={t.readers.toLocaleString()} />
+          <StatTile label="Avg. scroll" value={`${t.scroll}%`} />
+          <StatTile label="Finished" value={`${t.finishRate}%`} />
+          <StatTile label="Likes" value={t.likes.toLocaleString()} />
+          <StatTile label="Shares" value={t.shares.toLocaleString()} />
+        </div>
+        <p className="text-[13px] text-slate">Average time per visit: {fmtTime(t.seconds)}</p>
       </div>
       <div className="flex flex-col gap-3 rounded-[24px] border border-line bg-white p-6">
         <h2 className="text-[19px] font-semibold">Latest blog posts</h2>

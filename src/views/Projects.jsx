@@ -8,6 +8,7 @@ import { Reveal, RevealWords } from '../components/Reveal'
 import { FadeUp, RevealHeading, Sparkle } from '../components/ui'
 import { useMounted } from '../hooks/scroll'
 import { TESTIMONIALS_TITLE } from '../data/site'
+import { Eye, HeartSmall } from '../components/Engagement'
 
 /** Projects — "IDIS — Projects" in the pen.dev file. */
 
@@ -31,7 +32,22 @@ const toCard = (cs) => ({
   results: cs.card.results ?? [],
   image: cs.card.image,
   cta: `${cs.card.cta || 'View case study'} →`,
+  stats: cs.stats ?? { views: 0, likes: 0 },
 })
+
+/** Small view / like counters shown beside the client name. */
+const Stats = ({ p }) => (
+  <span className="inline-flex items-center gap-3 text-[14px] font-medium normal-case tracking-normal text-slate">
+    <span className="inline-flex items-center gap-1">
+      <Eye className="size-4" />
+      {p.stats.views}
+    </span>
+    <span className="inline-flex items-center gap-1">
+      <HeartSmall className="size-3.5 text-pink" />
+      {p.stats.likes}
+    </span>
+  </span>
+)
 
 function Cover({ p, className = '' }) {
   return (
@@ -66,7 +82,10 @@ function ProjectCard({ p, delay = 0 }) {
       <Link to={projectHref(p.slug)}>
         <Cover p={p} className="aspect-[4/3] rounded-[24px] bg-blush-200 md:rounded-[40px]" />
       </Link>
-      <p className="text-body-lg tracking-[0.03em] text-slate uppercase">{p.client}</p>
+      <p className="flex flex-wrap items-center justify-between gap-3 text-body-lg tracking-[0.03em] text-slate uppercase">
+        {p.client}
+        <Stats p={p} />
+      </p>
       <h3 className="text-h3 font-semibold text-ink">{p.title}</h3>
       <p className="text-body-lg text-slate">{p.desc}</p>
       <Results p={p} />
@@ -150,8 +169,9 @@ export default function Projects({ items = [], testimonials = [] }) {
               </Link>
               <div className="grid grid-cols-1 gap-8 md:px-6 lg:grid-cols-[minmax(0,1fr)_minmax(0,440px)] lg:gap-16">
                 <div className="flex flex-col gap-4">
-                  <p className="text-body tracking-[0.06em] text-slate uppercase">
+                  <p className="flex flex-wrap items-center gap-x-4 gap-y-2 text-body tracking-[0.06em] text-slate uppercase">
                     {featured.client} · {featured.tag}
+                    <Stats p={featured} />
                   </p>
                   <h2 className="text-h2 font-semibold text-ink">{featured.title}</h2>
                 </div>
