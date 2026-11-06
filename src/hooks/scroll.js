@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from 'react'
 
-/** True while the media query matches (e.g. "(min-width: 1024px)"). */
+/**
+ * True while the media query matches (e.g. "(min-width: 1024px)").
+ * Starts false on every render pass (the server can't know the answer) and
+ * updates right after mount, so server and browser HTML always match.
+ */
 export function useMediaQuery(query) {
-  const [matches, setMatches] = useState(() =>
-    typeof window !== 'undefined' ? window.matchMedia(query).matches : false,
-  )
+  const [matches, setMatches] = useState(false)
   useEffect(() => {
     const mq = window.matchMedia(query)
     const onChange = () => setMatches(mq.matches)
