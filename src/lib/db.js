@@ -16,7 +16,9 @@ const g = globalThis
 export function getDb() {
   if (!g.__idisDb) {
     g.__idisDb = createClient({
-      url: process.env.TURSO_DATABASE_URL ?? 'file:./data/idis.db',
+      // Without Turso (e.g. a preview with no database attached) fall back to a
+      // throwaway file in /tmp on Vercel, where the project folder is read-only.
+      url: process.env.TURSO_DATABASE_URL ?? (process.env.VERCEL ? 'file:/tmp/idis.db' : 'file:./data/idis.db'),
       authToken: process.env.TURSO_AUTH_TOKEN,
     })
   }

@@ -1,82 +1,23 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
+import { openUploadWidget, uploadsEnabled } from './cloudinary'
 
 /**
- * Image field: paste a URL or upload through the Cloudinary Upload Widget
- * (signed by /api/cloudinary/sign), with a live preview. The Upload button
- * only appears when Cloudinary is configured.
+ * Image field: upload straight from the admin (Cloudinary Upload Widget) or
+ * paste a link, with a live preview.
  */
-const SCRIPT_SRC = 'https://upload-widget.cloudinary.com/latest/global/all.js'
-const CLOUD_NAME = process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME
-const API_KEY = process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY
-const FOLDER = process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_FOLDER || 'idis'
-
-let scriptPromise = null
-function loadWidget() {
-  if (window.cloudinary) return Promise.resolve(window.cloudinary)
-  if (!scriptPromise) {
-    scriptPromise = new Promise((resolve, reject) => {
-      const s = document.createElement('script')
-      s.src = SCRIPT_SRC
-      s.async = true
-      s.onload = () => (window.cloudinary ? resolve(window.cloudinary) : reject(new Error('Upload widget unavailable')))
-      s.onerror = () => reject(new Error('Could not load the upload widget'))
-      document.head.appendChild(s)
-    }).catch((e) => {
-      scriptPromise = null
-      throw e
-    })
-  }
-  return scriptPromise
-}
-
 export default function UploadField({ label, name, defaultValue = '', hint }) {
   const [url, setUrl] = useState(defaultValue)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState(null)
-  const widget = useRef(null)
-  const canUpload = Boolean(CLOUD_NAME && API_KEY)
+  const canUpload = uploadsEnabled
 
   async function open() {
     setError(null)
     setBusy(true)
     try {
-      if (!widget.current) {
-        const cloudinary = await loadWidget()
-        widget.current = cloudinary.createUploadWidget(
-          {
-            cloudName: CLOUD_NAME,
-            apiKey: API_KEY,
-            folder: FOLDER,
-            sources: ['local', 'url', 'camera'],
-            multiple: false,
-            resourceType: 'image',
-            clientAllowedFormats: ['png', 'jpg', 'jpeg', 'gif', 'webp', 'avif', 'svg'],
-            uploadSignature: (cb, paramsToSign) => {
-              fetch('/api/cloudinary/sign', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ paramsToSign }),
-              })
-                .then(async (r) => {
-                  const d = await r.json().catch(() => ({}))
-                  if (!r.ok || !d.signature) throw new Error(d.error || `Signing failed (${r.status})`)
-                  cb(d.signature)
-                })
-                .catch((e) => setError(e.message))
-            },
-          },
-          (err, result) => {
-            if (err) return setError(typeof err === 'string' ? err : err.message || 'Upload failed')
-            if (result?.event === 'success' && result.info?.secure_url) {
-              // Serve a web-optimised version (auto format/quality, max 1600px wide).
-              setUrl(result.info.secure_url.replace('/upload/', '/upload/f_auto,q_auto,w_1600,c_limit/'))
-            }
-          },
-        )
-      }
-      widget.current.open()
+      await openUploadWidget({ onUrl: setUrl, onError: setError })
     } catch (e) {
       setError(e.message)
     } finally {

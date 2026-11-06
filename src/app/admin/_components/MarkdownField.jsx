@@ -2,10 +2,12 @@
 
 import { marked } from 'marked'
 import { useMemo, useRef, useState } from 'react'
+import { openUploadWidget, uploadsEnabled } from './cloudinary'
 
 /**
- * Article body editor: a Markdown textarea with quick-format buttons and a
- * Preview tab that uses the same styles as the live blog post.
+ * Article body editor: a Markdown textarea with quick-format buttons, an
+ * "Upload image" button that inserts the photo at the cursor, and a Preview
+ * tab that uses the same styles as the live blog post.
  */
 const TOOLS = [
   ['Heading', '## ', ''],
@@ -14,7 +16,6 @@ const TOOLS = [
   ['Quote', '> ', ''],
   ['List', '- ', ''],
   ['Link', '[', '](https://)'],
-  ['Image', '![Image description](', ')'],
 ]
 
 export default function MarkdownField({ name, defaultValue = '' }) {
@@ -22,6 +23,19 @@ export default function MarkdownField({ name, defaultValue = '' }) {
   const [tab, setTab] = useState('write')
   const ref = useRef(null)
   const html = useMemo(() => (tab === 'preview' ? marked.parse(value.replace(/</g, '&lt;')) : ''), [tab, value])
+
+  const [uploadError, setUploadError] = useState(null)
+
+  // Upload a photo and insert it at the cursor as a Markdown image.
+  const uploadImage = () => {
+    setUploadError(null)
+    const el = ref.current
+    const at = el ? el.selectionStart : value.length
+    openUploadWidget({
+      onUrl: (url) => setValue((v) => `${v.slice(0, at)}\n\n![Image description](${url})\n\n${v.slice(at)}`),
+      onError: setUploadError,
+    }).catch((e) => setUploadError(e.message))
+  }
 
   const wrap = (before, after) => {
     const el = ref.current
@@ -55,7 +69,13 @@ export default function MarkdownField({ name, defaultValue = '' }) {
                 {label}
               </button>
             ))}
+            {uploadsEnabled && (
+              <button type="button" onClick={uploadImage} className="rounded-full bg-ink px-3 py-1.5 text-[13px] font-medium text-white">
+                + Upload image
+              </button>
+            )}
           </div>
+          {uploadError && <span className="text-[13px] text-coral">{uploadError}</span>}
           <textarea
             ref={ref}
             value={value}
