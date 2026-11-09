@@ -211,7 +211,7 @@ export default function Contact() {
                 </Button>
               </div>
             </div>
-            <img src={founderPhoto} alt="Sidi Adisa, founder of IDIS Digital" loading="lazy" className="aspect-[520/500] w-full rounded-[20px] bg-blush-200 object-cover md:rounded-[24px]" />
+            <img src={founderPhoto} alt="Sidi Aderemi, founder of IDIS Digital" loading="lazy" className="aspect-[520/500] w-full rounded-[20px] bg-blush-200 object-cover md:rounded-[24px]" />
           </FadeUp>
         </section>
       </main>

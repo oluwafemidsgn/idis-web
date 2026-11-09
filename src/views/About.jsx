@@ -30,7 +30,7 @@ const STATS = [
 
 // Team photos other than Sidi's are placeholders until real portraits are supplied.
 const TEAM = [
-  { name: 'Sidi Adisa', role: 'Founder & Lead Consultant', bg: 'bg-blush-200', img: founderPhoto },
+  { name: 'Sidi Aderemi', role: 'Founder & Lead Consultant', bg: 'bg-blush-200', img: founderPhoto },
   { name: 'Team Member', role: 'Strategy & Growth Lead', bg: 'bg-sun', img: personCenter },
   { name: 'Team Member', role: 'Brand & Creative Lead', bg: 'bg-mint', img: personRight },
   { name: 'Team Member', role: 'Performance & AI Lead', bg: 'bg-pink', img: personLeft },

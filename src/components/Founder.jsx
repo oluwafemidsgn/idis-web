@@ -29,7 +29,7 @@ export default function Founder({ cta = { label: 'Meet Sidi & the IDIS team →'
             <p className="text-body-lg font-normal">MEET THE FOUNDER</p>
 
             <div className="flex flex-col items-start gap-[8px]">
-              <p className="text-h2 font-semibold">Sidi Adisa</p>
+              <p className="text-h2 font-semibold">Sidi Aderemi</p>
               <p className="text-body-lg font-normal">Founder &amp; Lead Marketing Consultant</p>
             </div>
 
@@ -66,7 +66,7 @@ export default function Founder({ cta = { label: 'Meet Sidi & the IDIS team →'
             sizes="(min-width: 1024px) 50vw, 100vw"
             loading="lazy"
             decoding="async"
-            alt="Sidi Adisa, Founder & Lead Marketing Consultant at IDIS Digital"
+            alt="Sidi Aderemi, Founder & Lead Marketing Consultant at IDIS Digital"
             className={`h-auto w-full object-cover transition-transform duration-[1600ms] ease-[cubic-bezier(0.16,1,0.3,1)] motion-reduce:scale-100 ${
               inView ? 'scale-100' : 'scale-115'
             }`}
