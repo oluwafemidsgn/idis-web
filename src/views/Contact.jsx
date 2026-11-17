@@ -14,8 +14,6 @@ import { BOOKING_URL, EMAIL, SERVICES, SOCIALS } from '../data/site'
  * message to the team, pre-filled from the form.
  */
 
-const BUDGETS = ['Under $2k', '$2k–$5k', '$5k–$10k', '$10k+']
-
 const METHODS = [
   { k: 'Email us', v: EMAIL, href: `mailto:${EMAIL}`, bg: 'bg-sun', icon: 'M4 6h16v12H4z M4 7l8 6 8-6' },
   { k: 'Book a free call', v: '30-minute strategy session', href: BOOKING_URL, bg: 'bg-pink', icon: 'M5 5h14v15H5z M5 10h14 M9 3v4 M15 3v4' },
@@ -78,7 +76,6 @@ function Chips({ label, options, selected, onToggle }) {
 
 function ContactForm() {
   const [help, setHelp] = useState([])
-  const [budget, setBudget] = useState('')
   const toggle = (o) => setHelp((h) => (h.includes(o) ? h.filter((x) => x !== o) : [...h, o]))
 
   const submit = (e) => {
@@ -90,7 +87,7 @@ function ContactForm() {
       `Company: ${f.get('company') || '—'}`,
       `Website: ${f.get('website') || '—'}`,
       `Help with: ${help.join(', ') || '—'}`,
-      `Monthly budget: ${budget || '—'}`,
+      `Monthly budget: ${f.get('budget') || '—'}`,
       '',
       f.get('goals'),
     ]
@@ -108,7 +105,7 @@ function ContactForm() {
         <Field label="Website" id="website" placeholder="company.com" />
       </div>
       <Chips label="What can we help with?" options={[...SERVICES.map((s) => s.title), 'Not sure yet']} selected={help} onToggle={toggle} />
-      <Chips label="Monthly budget" options={BUDGETS} selected={[budget]} onToggle={(o) => setBudget((b) => (b === o ? '' : o))} />
+      <Field label="Monthly budget" id="budget" placeholder="e.g. ₦1,500,000 or $2,000" />
       <Field label="Tell us about your goals" id="goals" rows={4} placeholder="What are you trying to achieve in the next 6–12 months?" required />
       <button type="submit" className="w-full rounded-full bg-ink px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-opacity hover:opacity-90">
         Send message →
