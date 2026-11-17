@@ -1,3 +1,4 @@
+import { Analytics } from '@vercel/analytics/next'
 import Nav from '@/components/Nav'
 import Footer from '@/components/Footer'
 import StickyCta from '@/components/StickyCta'
@@ -16,6 +17,8 @@ export default async function SiteLayout({ children }) {
         <Footer works={works} />
       </div>
       <StickyCta />
+      {/* Vercel Web Analytics — public pages only, so admin visits aren't counted. */}
+      <Analytics />
     </div>
   )
 }
