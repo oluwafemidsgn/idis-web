@@ -38,12 +38,11 @@ export default function VideoPreview() {
             SEE IDIS IN ACTION
           </Reveal>
           <h2 className="text-h2 font-semibold text-ink">
-            <RevealWords text="Two minutes on how we build marketing that moves." show={headIn} stagger={50} />
+            <RevealWords text="A showcase of work that speaks for itself" show={headIn} stagger={50} />
           </h2>
         </div>
         <Reveal as="p" show={headIn} delay={350} from="translate-y-6" className="max-w-[440px] text-body-lg text-slate">
-          Meet the team, the process and the work behind brands like AfriLabs, Mothers of Chibok and Awo the
-          Musical.
+          A look at some of the brands, campaigns and projects we’ve had the opportunity to work on.
         </Reveal>
       </div>
 

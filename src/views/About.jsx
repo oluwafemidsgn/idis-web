@@ -3,37 +3,19 @@
 const personCenter = '/assets/hero/person-center.webp'
 const personLeft = '/assets/hero/person-left.webp'
 const personRight = '/assets/hero/person-right.webp'
-const founderPhoto = '/assets/founder/founder-photo-md.webp'
 import Founder from '../components/Founder'
 import Cta from '../components/Cta'
 import { Reveal, RevealWords } from '../components/Reveal'
-import { EyebrowPill, Eyebrow, FadeUp, RevealHeading, SectionHeading, Sparkle } from '../components/ui'
+import { EyebrowPill, Eyebrow, FadeUp, RevealHeading, Sparkle } from '../components/ui'
 import { useInView, useMounted } from '../hooks/scroll'
 
 /** About — "IDIS — About" in the pen.dev file. */
-
-const VALUES = [
-  ['Business first', 'Every campaign ties back to a commercial goal you can name — revenue, leads, retention or reach.', 'bg-coral'],
-  ['Clarity over noise', "We'd rather do four things brilliantly than fourteen things forgettably.", 'bg-sun'],
-  ['Radical transparency', 'Open dashboards, honest reporting and no mystery line items. Ever.', 'bg-mint'],
-  ['Built together', 'We work as an extension of your team — in your Slack, your rhythms and your room.', 'bg-pink'],
-  ['Evidence over ego', 'Data decides. We test, learn and kill ideas — even our favourite ones.', 'bg-lime'],
-  ['Curious by default', "New platforms, new tools, new audiences. We stay ahead so you don't have to.", 'bg-grape'],
-]
 
 const STATS = [
   ['15+', 'Years of sales and marketing leadership'],
   ['150+', 'Creative assets delivered for a single client'],
   ['2', 'Markets served: Nigeria and the United Kingdom'],
   ['40%', 'Lift in social reach for Awo the Musical'],
-]
-
-// Team photos other than Sidi's are placeholders until real portraits are supplied.
-const TEAM = [
-  { name: 'Sidi Aderemi', role: 'Founder & Lead Consultant', bg: 'bg-blush-200', img: founderPhoto },
-  { name: 'Team Member', role: 'Strategy & Growth Lead', bg: 'bg-sun', img: personCenter },
-  { name: 'Team Member', role: 'Brand & Creative Lead', bg: 'bg-mint', img: personRight },
-  { name: 'Team Member', role: 'Performance & AI Lead', bg: 'bg-pink', img: personLeft },
 ]
 
 const CLIENTS = ['AfriLabs', 'Sats App', 'AfricaCompare', 'Duke of Shomolu', 'Mothers of Chibok']
@@ -143,65 +125,6 @@ function Stats() {
   )
 }
 
-function Values() {
-  return (
-    <section className="page-shell">
-      <div className="rounded-[24px] bg-blush px-4 py-14 md:rounded-[40px] md:px-12 md:py-[96px]">
-        <SectionHeading
-          eyebrow="WHAT WE BELIEVE"
-          title="Six principles behind every brief we take on."
-          desc="These aren't wall posters. They shape how we scope work, how we report, and how we tell you the truth when something isn't working."
-        />
-        <div className="mt-12 grid grid-cols-1 gap-4 sm:grid-cols-2 md:mt-16 md:gap-5 lg:grid-cols-3">
-          {VALUES.map(([t, d, c], i) => (
-            <FadeUp key={t} delay={(i % 3) * 100} className="flex flex-col gap-10 rounded-[24px] bg-white p-7 md:p-8">
-              <span className={`size-14 rounded-full md:size-16 ${c}`} />
-              <div className="flex flex-col gap-4">
-                <h3 className="text-h4 font-semibold text-ink">{t}</h3>
-                <p className="text-body-lg text-slate">{d}</p>
-              </div>
-            </FadeUp>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
-function Team() {
-  return (
-    <section className="page-shell">
-      <div className="content flex flex-col gap-12">
-        <div className="flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
-          <div className="flex max-w-[780px] flex-col gap-6">
-            <FadeUp from="translate-y-4">
-              <Eyebrow>THE TEAM</Eyebrow>
-            </FadeUp>
-            <RevealHeading text="Small team. Senior minds. Zero hand-offs." className="text-h2 font-semibold text-ink" />
-          </div>
-          <FadeUp as="p" delay={200} className="max-w-[420px] text-body-lg text-slate">
-            The people who pitch your work are the people who do your work. No juniors learning on your budget — just
-            strategists, creatives and analysts who've done it before.
-          </FadeUp>
-        </div>
-        <div className="grid grid-cols-2 gap-4 md:gap-5 lg:grid-cols-4">
-          {TEAM.map((p, i) => (
-            <FadeUp key={p.role} delay={i * 100} className="flex flex-col gap-4">
-              <div className={`aspect-[3/4] overflow-hidden rounded-[24px] ${p.bg}`}>
-                <img src={p.img} alt={p.name === 'Team Member' ? '' : p.name} loading="lazy" className="h-full w-full object-cover object-top transition-transform duration-700 hover:scale-105" />
-              </div>
-              <div>
-                <p className="text-h5 font-semibold text-ink">{p.name}</p>
-                <p className="text-body text-slate">{p.role}</p>
-              </div>
-            </FadeUp>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}
-
 function Clients() {
   return (
     <section className="page-shell">
@@ -228,9 +151,7 @@ export default function About() {
       <main className="flex flex-col gap-[clamp(64px,10vw,140px)] py-[clamp(64px,10vw,140px)]">
         <Story />
         <Stats />
-        <Values />
         <Founder cta={{ label: 'Book a session with Sidi →', to: '/contact' }} />
-        <Team />
         <Clients />
         <Cta />
       </main>

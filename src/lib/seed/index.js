@@ -49,7 +49,6 @@ const CARDS = {
     results: [['Digital Promotion', 'Building awareness and audience engagement'], ['Website Development', "Strengthening the documentary's online presence"]],
     image: '/assets/projects/mothers-of-chibok.webp',
     filterTag: 'Digital',
-    cta: 'See more',
   },
 }
 
