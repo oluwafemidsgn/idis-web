@@ -11,12 +11,12 @@
   --color-slate: #7b8698;
   --color-line: #e5e7ea;
   --color-gray-300: #b3b9c4;
-  /* Client feedback (Nov 2026): no pink or red anywhere on the site. The old
-     pink-tinted off-whites are now cool off-whites, and the pink / coral /
+  /* Client feedback (Nov 2026): no strong pink or red. The light blush shades
+     stay (the client likes them, e.g. behind the hero); the pink / coral /
      raspberry / peach accents are remapped to the blue + yellow palette. The
      token names stay, because saved content in the database refers to them. */
-  --color-blush: #f8fafd;
-  --color-blush-200: #eef3fb;
+  --color-blush: #fffbfb;
+  --color-blush-200: #fff5f5;
   --color-peach: #ffce31;
   --color-danger: #b42318; /* admin form errors only */
 

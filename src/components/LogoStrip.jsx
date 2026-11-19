@@ -8,7 +8,7 @@ import { Reveal } from './Reveal'
  * Shows the client logos supplied by IDIS (Nov 2026), spaced with an 80px gap.
  * The row is rendered twice back-to-back and slid left by exactly one copy's
  * width, so the loop is seamless. Edges fade out; it pauses on hover and
- * holds still for reduced-motion users. The strip fades up as it enters.
+ * keeps scrolling for everyone (client request). The strip fades up as it enters.
  * A "Trusted By Leading Brands" heading sits above (client feedback, Nov 2026).
  */
 // Client logos, cleaned up (backgrounds removed, trimmed) into public/assets/logos.
@@ -26,18 +26,21 @@ const LOGOS = [
   { id: 'jb-multimedia', alt: 'JB Multimedia Studios', w: 112 },
 ]
 
+// Each half of the marquee repeats the set twice so it is always wider than the
+// screen (even on ultra-wide monitors) — no gap ever shows as it loops.
+const ROW = [...LOGOS, ...LOGOS]
+
 function Row({ hidden = false }) {
   return (
     <ul
       aria-hidden={hidden || undefined}
       className="flex shrink-0 items-center gap-x-10 pr-10 md:gap-x-[80px] md:pr-[80px]"
     >
-      {LOGOS.map((l) => (
-        <li key={l.id} className="shrink-0">
+      {ROW.map((l, i) => (
+        <li key={`${l.id}-${i}`} className="shrink-0">
           <img
             src={`/assets/logos/${l.id}.webp`}
             alt={hidden ? '' : l.alt}
-            loading="lazy"
             style={{ '--w': `${l.w}px` }}
             className="block h-auto w-[calc(var(--w)*0.75)] md:w-[var(--w)]"
           />
@@ -59,7 +62,7 @@ export default function LogoStrip() {
         <p className="mb-[clamp(24px,3vw,40px)] text-center text-body-lg font-medium tracking-[0.06em] text-slate uppercase">
           Trusted By Leading Brands
         </p>
-        <div className="flex w-max animate-[marquee_40s_linear_infinite] group-hover:[animation-play-state:paused] motion-reduce:animate-none">
+        <div className="flex w-max animate-[marquee_60s_linear_infinite] group-hover:[animation-play-state:paused]">
           <Row />
           <Row hidden />
         </div>
