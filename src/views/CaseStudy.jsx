@@ -10,7 +10,7 @@ import { Check, FadeUp, Tag } from '../components/ui'
 import { useInView, useMounted } from '../hooks/scroll'
 
 /**
- * Case study — "IDIS — Case Study: Awo the Musical" in the pen.dev file,
+ * Case study — "IDIS — Case Study" in the pen.dev file,
  * used as the template for every project at /projects/:slug.
  */
 

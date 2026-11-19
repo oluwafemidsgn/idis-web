@@ -7,7 +7,7 @@ import { Reveal, RevealWords } from './Reveal'
 /**
  * Why IDIS — node 1925:5602.
  * Centered header + an even 3×2 grid (2×3 on tablet, stacked on mobile) of five
- * value-prop cards and one solid peach accent tile, inside an off-white panel.
+ * value-prop cards and one solid yellow accent tile, inside an off-white panel.
  * Every tile shares the same padding and height; the icon sits top-left and
  * the copy is anchored to the bottom so titles line up across a row.
  * On scroll the heading rises in word by word, then the tiles lift and scale
@@ -65,7 +65,7 @@ export default function WhyIdis() {
 
         <div
           ref={ref}
-          className="w-full rounded-[24px] bg-[#fffbfb] p-3 sm:p-4 md:rounded-[40px] md:p-[clamp(16px,2vw,32px)]"
+          className="w-full rounded-[24px] bg-blush p-3 sm:p-4 md:rounded-[40px] md:p-[clamp(16px,2vw,32px)]"
         >
           <ul className="grid grid-cols-1 gap-3 sm:gap-4 md:grid-cols-2 xl:grid-cols-3 xl:gap-[clamp(16px,1.2vw,24px)]">
             {tiles.map((tile, i) => (
@@ -77,7 +77,7 @@ export default function WhyIdis() {
                 from="translate-y-16 scale-[0.94]"
               >
                 {tile === 'accent' ? (
-                  <div aria-hidden="true" className={`${TILE} h-full items-end bg-[#f4a57e]`}>
+                  <div aria-hidden="true" className={`${TILE} h-full items-end bg-sun`}>
                     <img
                       src={sparkle}
                       alt=""
@@ -99,7 +99,7 @@ export default function WhyIdis() {
 function ValueCard({ title, desc, show, delay }) {
   return (
     <div className={`${TILE} h-full bg-white`}>
-      <Reveal show={show} delay={delay} from="scale-0" className="size-[48px] rounded-full bg-[#f4a57e] 2xl:size-[56px]" />
+      <Reveal show={show} delay={delay} from="scale-0" className="size-[48px] rounded-full bg-sun 2xl:size-[56px]" />
       <div className="flex flex-col gap-3">
         <h3 className="text-h4 font-semibold text-ink">{title}</h3>
         <p className="max-w-[40ch] text-body-lg font-normal text-[#7b8698]">{desc}</p>

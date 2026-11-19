@@ -72,7 +72,7 @@ export function SaveButton({ children = 'Save changes' }) {
 }
 
 export function Notice({ state, saved }) {
-  if (state?.error) return <p className="rounded-[14px] bg-coral/10 px-4 py-3 text-[14px] font-medium text-coral">{state.error}</p>
+  if (state?.error) return <p className="rounded-[14px] bg-danger/10 px-4 py-3 text-[14px] font-medium text-danger">{state.error}</p>
   if (state?.ok || saved) return <p className="rounded-[14px] bg-leaf/10 px-4 py-3 text-[14px] font-medium text-leaf">{state?.ok || 'Saved — the website is updated.'}</p>
   return null
 }
@@ -85,7 +85,7 @@ export function ConfirmButton({ message, children, className = '' }) {
       onClick={(e) => {
         if (!window.confirm(message)) e.preventDefault()
       }}
-      className={className || 'rounded-full border border-coral/40 px-5 py-2.5 text-[14px] font-medium text-coral transition-colors hover:bg-coral hover:text-white'}
+      className={className || 'rounded-full border border-danger/40 px-5 py-2.5 text-[14px] font-medium text-danger transition-colors hover:bg-danger hover:text-white'}
     >
       {children}
     </button>
@@ -94,11 +94,11 @@ export function ConfirmButton({ message, children, className = '' }) {
 
 export const ACCENTS = [
   ['bg-sun', 'Yellow'],
-  ['bg-pink', 'Pink'],
+  ['bg-pink', 'Light blue'],
   ['bg-mint', 'Mint'],
   ['bg-lime', 'Lime'],
-  ['bg-coral', 'Coral'],
+  ['bg-coral', 'Gold'],
   ['bg-brand', 'Blue'],
-  ['bg-blush-200', 'Blush'],
+  ['bg-blush-200', 'Off-white'],
   ['bg-navy', 'Navy'],
 ]

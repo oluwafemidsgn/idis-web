@@ -54,7 +54,7 @@ export default function UploadField({ label, name, defaultValue = '', hint }) {
           </div>
           {!canUpload && <span className="text-[13px] text-slate">Uploads switch on once Cloudinary is connected — until then paste an image link.</span>}
           {hint && <span className="text-[13px] text-slate">{hint}</span>}
-          {error && <span className="text-[13px] text-coral">{error}</span>}
+          {error && <span className="text-[13px] text-danger">{error}</span>}
         </div>
       </div>
     </div>

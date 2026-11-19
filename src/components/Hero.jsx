@@ -11,7 +11,7 @@ const personCenter = '/assets/hero/person-center.webp'
 const personRight = '/assets/hero/person-right.webp'
 /**
  * Hero — node 1910:383, copy per client feedback (Nov 2026).
- * A rounded light-pink (#fff5f5) frame holding the headline and CTA,
+ * A rounded light off-white frame holding the headline and CTA,
  * above a "stage": the collage graphic plus three cut-out portraits
  * (Figma "image 10" left, "image 4" centre, "image 9" right) clipped by the
  * frame's bottom edge.
@@ -63,7 +63,7 @@ export default function Hero() {
 
   return (
     <section id="home" className="page-shell">
-      <div className="relative overflow-hidden rounded-[24px] bg-[#fff5f5] pt-12 md:rounded-[40px] md:pt-[80px]">
+      <div className="relative overflow-hidden rounded-[24px] bg-blush-200 pt-12 md:rounded-[40px] md:pt-[80px]">
         {/* Headline block */}
         <div className="relative z-10 mx-auto flex w-[1335px] max-w-full flex-col items-center gap-6 px-4 text-center md:gap-[33px]">
           <h1 className="max-w-[1180px] text-h1 font-semibold text-ink">

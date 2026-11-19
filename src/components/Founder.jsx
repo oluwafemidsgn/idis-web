@@ -51,7 +51,7 @@ export default function Founder({ cta = { label: 'Meet Sidi & the IDIS team →'
 
             <Link
               to={cta.to}
-              className="inline-block rounded-[99px] bg-brand px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-opacity hover:opacity-90"
+              className="inline-block rounded-[99px] bg-brand px-8 py-4 text-body-lg font-medium text-white transition-opacity hover:opacity-90"
             >
               {cta.label}
             </Link>

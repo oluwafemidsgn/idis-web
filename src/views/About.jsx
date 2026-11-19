@@ -15,10 +15,10 @@ const STATS = [
   ['15+', 'Years of sales and marketing leadership'],
   ['150+', 'Creative assets delivered for a single client'],
   ['2', 'Markets served: Nigeria and the United Kingdom'],
-  ['40%', 'Lift in social reach for Awo the Musical'],
+  ['40%', 'Lift in social reach for Duke of Shomolu Foundation'],
 ]
 
-const CLIENTS = ['AfriLabs', 'Sats App', 'AfricaCompare', 'Duke of Shomolu', 'Mothers of Chibok']
+const CLIENTS = ['AfriLabs', 'Sats App', 'AfricaCompare', 'Duke of Shomolu Foundation', 'Mothers of Chibok']
 
 function Hero() {
   const ready = useMounted()

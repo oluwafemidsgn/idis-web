@@ -18,11 +18,11 @@ const CARDS = {
     image: '/assets/projects/afrilabs.webp',
     filterTag: 'Brand',
   },
-  'awo-the-musical': {
-    label: 'DUKE OF SHOMOLU PRODUCTIONS',
-    title: 'Taking African theatre to audiences across Nigeria and the UK.',
-    desc: 'Through integrated digital campaigns, content, event branding and targeted promotion, we supported multiple productions across two markets.',
-    results: [['8 Productions', 'Promoted across Nigeria and the UK'], ['40%', 'Increase in social media reach']],
+  'duke-of-shomolu-foundation': {
+    label: 'DUKE OF SHOMOLU FOUNDATION',
+    title: 'Duke of Shomolu Foundation × Idis Digital',
+    desc: 'Using digital marketing and creative campaigns, we helped Duke of Shomolu Foundation promote 8 theatre shows across Nigeria and the UK.',
+    results: [['8', 'Shows across Nigeria & the UK'], ['40%', 'Increase in social media reach']],
     image: '/assets/projects/duke-of-shomolu.webp',
     filterTag: 'Campaigns',
   },
@@ -71,7 +71,7 @@ export const SEED_TESTIMONIALS = [
   },
   {
     author: 'Duke of Shomolu Foundation',
-    accent: 'bg-pink',
+    accent: 'bg-sun',
     quote: '“Idis’ dedication, expertise, and attention to detail made a real difference throughout the project. Their responsiveness and quality of work were outstanding, and we sincerely appreciate the value they brought to the partnership.”',
   },
   {

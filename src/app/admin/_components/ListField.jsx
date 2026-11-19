@@ -58,7 +58,7 @@ export default function ListField({ label, hint, name, columns, defaultValue = [
             <div className="flex shrink-0 gap-1">
               <button type="button" onClick={() => move(ri, -1)} aria-label="Move up" className="grid size-9 place-items-center rounded-full bg-white text-slate hover:text-ink">↑</button>
               <button type="button" onClick={() => move(ri, 1)} aria-label="Move down" className="grid size-9 place-items-center rounded-full bg-white text-slate hover:text-ink">↓</button>
-              <button type="button" onClick={() => setRows((rs) => rs.filter((_, i) => i !== ri))} aria-label="Remove" className="grid size-9 place-items-center rounded-full bg-white text-coral">✕</button>
+              <button type="button" onClick={() => setRows((rs) => rs.filter((_, i) => i !== ri))} aria-label="Remove" className="grid size-9 place-items-center rounded-full bg-white text-danger">✕</button>
             </div>
           </div>
         ))}

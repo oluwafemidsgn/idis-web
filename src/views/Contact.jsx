@@ -107,7 +107,7 @@ function ContactForm() {
       <Chips label="What can we help with?" options={[...SERVICES.map((s) => s.title), 'Not sure yet']} selected={help} onToggle={toggle} />
       <Field label="Monthly budget" id="budget" placeholder="e.g. ₦1,500,000 or $2,000" />
       <Field label="Tell us about your goals" id="goals" rows={4} placeholder="What are you trying to achieve in the next 6–12 months?" required />
-      <button type="submit" className="w-full rounded-full bg-ink px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-opacity hover:opacity-90">
+      <button type="submit" className="w-full rounded-full bg-ink px-8 py-4 text-body-lg font-medium text-white transition-opacity hover:opacity-90">
         Send message →
       </button>
       <p className="text-center text-[14px] text-slate">We'll only use your details to reply to your enquiry.</p>

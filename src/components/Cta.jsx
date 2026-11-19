@@ -78,7 +78,7 @@ export default function Cta() {
             >
               <Link
                 to="/contact"
-                className="rounded-[99px] bg-brand px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-[opacity,translate] hover:-translate-y-0.5 hover:opacity-90"
+                className="rounded-[99px] bg-brand px-8 py-4 text-body-lg font-medium text-white transition-[opacity,translate] hover:-translate-y-0.5 hover:opacity-90"
               >
                 Start a Conversation →
               </Link>

@@ -56,7 +56,7 @@ function Card({ cs, index, wide }) {
         </div>
         <Link
           to={`/projects/${cs.slug}`}
-          className="flex w-fit items-start rounded-[99px] bg-ink px-[32px] py-[16px] text-body-lg font-medium whitespace-nowrap text-[#fffbfb] transition-opacity hover:opacity-90"
+          className="flex w-fit items-start rounded-[99px] bg-ink px-[32px] py-[16px] text-body-lg font-medium whitespace-nowrap text-white transition-opacity hover:opacity-90"
         >
           {cta || 'View case study'} →
         </Link>

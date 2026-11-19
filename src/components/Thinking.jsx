@@ -62,7 +62,7 @@ export default function Thinking({ posts = [] }) {
           <Reveal show={headIn} delay={650} from="translate-y-4">
             <Link
               to="/blog"
-              className="inline-block rounded-[99px] bg-ink px-8 py-4 text-body-lg font-medium text-[#fffbfb] transition-opacity hover:opacity-90"
+              className="inline-block rounded-[99px] bg-ink px-8 py-4 text-body-lg font-medium text-white transition-opacity hover:opacity-90"
             >
               Read the blog →
             </Link>
@@ -70,7 +70,7 @@ export default function Thinking({ posts = [] }) {
         </div>
 
         {/* Right panel with article cards */}
-        <div className="flex h-auto min-w-0 flex-1 flex-col gap-[clamp(16px,1.6vw,32px)] overflow-hidden rounded-[24px] bg-[#fffbfb] p-4 md:rounded-[40px] md:p-[clamp(24px,3.3vw,64px)]">
+        <div className="flex h-auto min-w-0 flex-1 flex-col gap-[clamp(16px,1.6vw,32px)] overflow-hidden rounded-[24px] bg-blush p-4 md:rounded-[40px] md:p-[clamp(24px,3.3vw,64px)]">
           {posts.map((a) => (
             <ArticleCard key={a.title} a={a} />
           ))}

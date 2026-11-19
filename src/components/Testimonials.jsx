@@ -11,7 +11,7 @@ import { TESTIMONIALS_TITLE } from '../data/site'
  * quote cards as a sticky stack — each card pins a little lower than the last,
  * so as you scroll they pile up on one another (slightly tilted, like cards on
  * a table, with the covered ones easing back) before the section leaves the
- * frame. Avatar circles are solid peach (#f4a57e), as authored in Figma.
+ * frame. Avatar circles are solid yellow, as authored in Figma.
  */
 // Each card gets a slight tilt, cycling through these.
 const TILTS = [-2, 1.5, -0.5, 1]
@@ -61,7 +61,7 @@ export default function Testimonials({ items = [] }) {
                 className="origin-top rounded-[24px] bg-white p-5 shadow-[0_-16px_48px_rgba(4,9,23,0.18)] will-change-transform md:rounded-[40px] md:p-[clamp(28px,3vw,56px)]"
               >
                 <div className="flex items-center gap-4 md:gap-6">
-                  <div className="size-[56px] shrink-0 rounded-full bg-[#f4a57e] md:size-[80px]" />
+                  <div className="size-[56px] shrink-0 rounded-full bg-sun md:size-[80px]" />
                   <figcaption className="text-h4 font-semibold text-ink">{c.author}</figcaption>
                 </div>
                 <blockquote className="mt-[clamp(20px,2.4vw,40px)] text-h5 font-normal leading-[1.5] tracking-normal [text-wrap:pretty] text-[#7b8698]">

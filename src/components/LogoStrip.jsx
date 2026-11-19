@@ -1,23 +1,30 @@
 'use client'
 
-const idisMark = '/assets/logos/idis-mark.svg'
 import { useInView } from '../hooks/scroll'
 import { Reveal } from './Reveal'
 
 /**
  * LogoStrip — full-bleed, single-row marquee of client/partner logos.
- * Figma node-id 1913:75 ("Frame 38"): 12 monochrome IDIS marks (#7B8698),
- * each 102px × 30.993px, spaced with an 80px gap.
+ * Shows the client logos supplied by IDIS (Nov 2026), spaced with an 80px gap.
  * The row is rendered twice back-to-back and slid left by exactly one copy's
  * width, so the loop is seamless. Edges fade out; it pauses on hover and
  * holds still for reduced-motion users. The strip fades up as it enters.
  * A "Trusted By Leading Brands" heading sits above (client feedback, Nov 2026).
  */
-const LOGOS = Array.from({ length: 12 }, (_, i) => ({
-  id: i,
-  src: idisMark,
-  alt: 'Client logo',
-}))
+// Client logos, cleaned up (backgrounds removed, trimmed) into public/assets/logos.
+// `w` is the display width at desktop size, chosen so the marks look balanced
+// rather than all sharing one height (wide wordmarks would otherwise dominate).
+const LOGOS = [
+  { id: 'duke-of-shomolu', alt: 'Duke of Shomolu Foundation', w: 104 },
+  { id: 'afrilabs', alt: 'AfriLabs', w: 62 },
+  { id: 'bank-of-industry', alt: 'Bank of Industry', w: 196 },
+  { id: 'mothers-of-chibok', alt: 'Mothers of Chibok', w: 96 },
+  { id: 'savilock', alt: 'SaviLock', w: 168 },
+  { id: 'aiip', alt: 'Abia Industrial Innovation Park', w: 70 },
+  { id: 'kingsway-bistro', alt: 'Kingsway Bistro', w: 120 },
+  { id: 'sats-app', alt: 'Sats App', w: 60 },
+  { id: 'jb-multimedia', alt: 'JB Multimedia Studios', w: 112 },
+]
 
 function Row({ hidden = false }) {
   return (
@@ -28,9 +35,11 @@ function Row({ hidden = false }) {
       {LOGOS.map((l) => (
         <li key={l.id} className="shrink-0">
           <img
-            src={l.src}
+            src={`/assets/logos/${l.id}.webp`}
             alt={hidden ? '' : l.alt}
-            className="block h-[24px] w-auto md:h-[30.993px]"
+            loading="lazy"
+            style={{ '--w': `${l.w}px` }}
+            className="block h-auto w-[calc(var(--w)*0.75)] md:w-[var(--w)]"
           />
         </li>
       ))}

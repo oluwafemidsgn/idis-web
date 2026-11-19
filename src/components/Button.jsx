@@ -13,7 +13,7 @@ import { Link } from '@/lib/router'
  */
 export default function Button({ children, variant = 'dark', href = '/contact', className = '', ...rest }) {
   const variants = {
-    dark: 'bg-ink text-[#fffbfb]',
+    dark: 'bg-ink text-white',
     blue: 'bg-brand text-mist',
     light: 'bg-white text-ink',
     outline: 'border border-slate bg-white text-ink',

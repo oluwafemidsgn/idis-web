@@ -11,19 +11,24 @@
   --color-slate: #7b8698;
   --color-line: #e5e7ea;
   --color-gray-300: #b3b9c4;
-  --color-blush: #fffbfb;
-  --color-blush-200: #fff5f5;
-  --color-peach: #f4a57e;
+  /* Client feedback (Nov 2026): no pink or red anywhere on the site. The old
+     pink-tinted off-whites are now cool off-whites, and the pink / coral /
+     raspberry / peach accents are remapped to the blue + yellow palette. The
+     token names stay, because saved content in the database refers to them. */
+  --color-blush: #f8fafd;
+  --color-blush-200: #eef3fb;
+  --color-peach: #ffce31;
+  --color-danger: #b42318; /* admin form errors only */
 
   /* Illustration accents (from the pen.dev design system) */
   --color-sun: #ffce31;
-  --color-pink: #ff61c5;
-  --color-coral: #f0613c;
+  --color-pink: #b3c9ff;      /* light brand blue (was pink) */
+  --color-coral: #ffb020;     /* golden yellow (was coral red) */
   --color-leaf: #208204;
   --color-lime: #adff85;
   --color-mint: #95fbcb;
   --color-grape: #882de1;
-  --color-raspberry: #d72a65;
+  --color-raspberry: #132650; /* navy (was raspberry) */
 
 
   /* ── Type scale ───────────────────────────────────────────────

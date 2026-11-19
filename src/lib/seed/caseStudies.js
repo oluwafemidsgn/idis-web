@@ -21,7 +21,7 @@ const digitalExperienceSm = '/assets/services/digital-experience-sm.webp'
 /**
  * Seed content for the Works & Campaigns case studies (see seed/index.js);
  * after first run they live in the database and are edited in /admin. The layout follows
- * "IDIS — Case Study: Awo the Musical" in the pen.dev file; facts come from
+ * "IDIS — Case Study" layout in the pen.dev file; facts come from
  * the client case studies on the previous idisdigital.co site.
  *
  * `quoteFrom` names a client testimonial; studies without one show
@@ -78,49 +78,49 @@ export const CASE_STUDIES = [
     },
   },
   {
-    slug: 'awo-the-musical',
-    client: 'Duke of Shomolu Productions',
-    nav: 'Awo the Musical',
+    slug: 'duke-of-shomolu-foundation',
+    client: 'Duke of Shomolu Foundation',
+    nav: 'Duke of Shomolu Foundation',
     tags: [
-      ['Campaign', 'bg-pink'],
-      ['Theatre & Culture', 'bg-sun'],
-      ['Nigeria → UK', 'bg-mint'],
+      ['Campaigns', 'bg-sun'],
+      ['Theatre & Culture', 'bg-mint'],
+      ['Nigeria & UK', 'bg-lime'],
     ],
-    title: "Selling out London's Shaw Theatre for Awo the Musical.",
+    title: 'Growing Theatre Audiences Across Nigeria and the UK',
     meta: [
-      ['Client', 'Duke of Shomolu Productions'],
+      ['Client', 'Duke of Shomolu Foundation'],
       ['Industry', 'Theatre, arts & culture'],
-      ['Services', 'Digital strategy, social, paid media, event branding'],
-      ['Markets', 'Lagos & London'],
+      ['Services', 'Digital marketing, social media, event branding, targeted advertising, content'],
+      ['Markets', 'Lagos & the UK'],
     ],
-    hero: { src: awoHero, sm: awoHeroSm, alt: 'Collage of applauding hands and a dancer on a spotlit theatre stage', bg: 'bg-pink' },
+    hero: { src: awoHero, sm: awoHeroSm, alt: 'Collage of applauding hands and a dancer on a spotlit theatre stage', bg: 'bg-sun' },
+    labels: ['The Challenge', 'What We Did', 'The Results'],
     results: [
-      ['2/2', "Shows sold out at London's Shaw Theatre"],
+      ['8', 'Shows promoted across Nigeria & the UK'],
+      ['4 + 4', 'UK shows and Lagos shows'],
       ['40%', 'Increase in social media reach'],
-      ['8', 'Productions now promoted across Nigeria & the UK'],
     ],
     challenge: {
-      lead: 'Awo the Musical had already moved audiences in Nigeria. Now it had to win over London — in a city with thousands of shows competing for the same night out.',
-      body: 'Duke of Shomolu Productions needed more than ticket ads. They needed a campaign that would build cultural buzz before curtain-up, reach both the African diaspora and mainstream theatregoers, and position the production as a must-see moment for African theatre on a global stage.',
+      lead: 'Duke of Shomolu Foundation needed to consistently build awareness, audience interest, and ticket sales for its theatrical productions across two markets: Nigeria and the UK.',
     },
     approach: {
-      lead: "We built the campaign around the story, not the seat. Every touchpoint was designed to make people feel they'd miss something important if they weren't in the room.",
+      lead: 'We supported the promotion of multiple productions through digital marketing, social media campaigns, event branding, targeted advertising, and audience-focused content. Our work helped build awareness around each show and drive audiences to the theatre.',
       tactics: [
-        ['Story-first positioning', 'We framed Awo as a landmark cultural moment — giving press, partners and fans a reason to talk.'],
-        ['Diaspora-led targeting', 'Paid social reached African communities across the UK first, turning them into early advocates.'],
-        ['Always-on content engine', 'Rehearsal clips, cast stories and countdowns kept the show in feeds for weeks before opening.'],
-        ['Event branding', 'A bold visual system carried from social posts to the theatre foyer for one seamless experience.'],
+        ['Digital marketing', 'Campaigns planned around each production, from announcement to closing night.'],
+        ['Social media campaigns', 'Content and activity that kept every show in front of the right audiences.'],
+        ['Event branding', 'Visuals that gave each production a clear, recognisable identity.'],
+        ['Targeted advertising', 'Paid campaigns aimed at theatregoers in Lagos and across the UK.'],
       ],
     },
     gallery: { src: awoTickets, sm: awoTicketsSm, alt: 'Collage of a theatre ticket and a phone bursting with social media reactions', bg: 'bg-sun' },
     quoteFrom: 'Duke of Shomolu Foundation',
     impact: {
-      lead: 'Both performances at the Shaw Theatre sold out. But the bigger win was what came after.',
+      lead: 'Eight productions, two markets, and a growing audience for every show.',
       items: [
-        ['Sold-out debut', 'Every seat filled across both London performances.'],
-        ['40% more social reach', 'A wider, more engaged audience for this show — and the next one.'],
-        ['A global reputation', 'Duke of Shomolu is now recognised as a serious force in international African theatre.'],
-        ['A lasting partnership', "We've since supported multiple productions across Nigeria and the UK."],
+        ['8 shows promoted across the UK and Nigeria'],
+        ['4 UK shows and 4 Lagos shows'],
+        ['40% increase in social media reach'],
+        ['Supported audience growth and ticket sales across multiple productions'],
       ],
     },
   },

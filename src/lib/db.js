@@ -99,10 +99,56 @@ async function applySchema() {
         created_at INTEGER NOT NULL
       )`,
       `CREATE INDEX IF NOT EXISTS shares_item ON shares (kind, slug, created_at)`,
+      // One-off content changes that must reach databases created before them.
+      `CREATE TABLE IF NOT EXISTS migrations (id TEXT PRIMARY KEY, ran_at INTEGER NOT NULL)`,
     ],
     'write',
   )
   await seed(db)
+  await migrate(db)
+}
+
+/**
+ * Content migrations: each runs once per database, in order. Seeding only
+ * fills empty tables, so changes to existing content go here.
+ */
+const MIGRATIONS = [
+  {
+    // Client feedback, Nov 2026: "Awo the Musical" becomes the Duke of Shomolu
+    // Foundation case study (new slug and copy); its analytics move with it.
+    id: '2026-11-duke-of-shomolu-foundation',
+    async run(db) {
+      const from = 'awo-the-musical'
+      const { slug: to, ...data } = SEED_CASE_STUDIES.find((c) => c.slug === 'duke-of-shomolu-foundation')
+      const old = await db.execute({ sql: `SELECT 1 FROM case_studies WHERE slug = ?`, args: [from] })
+      if (!old.rows.length) return
+      await db.batch(
+        [
+          { sql: `UPDATE case_studies SET slug = ?, data = ?, updated_at = ? WHERE slug = ?`, args: [to, JSON.stringify(data), Date.now(), from] },
+          { sql: `UPDATE visits SET slug = ? WHERE kind = 'case' AND slug = ?`, args: [to, from] },
+          { sql: `UPDATE OR IGNORE likes SET slug = ? WHERE kind = 'case' AND slug = ?`, args: [to, from] },
+          { sql: `UPDATE shares SET slug = ? WHERE kind = 'case' AND slug = ?`, args: [to, from] },
+        ],
+        'write',
+      )
+    },
+  },
+  {
+    // Client feedback, Nov 2026: no pink on the site.
+    id: '2026-11-duke-testimonial-accent',
+    async run(db) {
+      await db.execute(`UPDATE testimonials SET accent = 'bg-sun' WHERE author = 'Duke of Shomolu Foundation' AND accent = 'bg-pink'`)
+    },
+  },
+]
+
+async function migrate(db) {
+  const done = new Set((await db.execute(`SELECT id FROM migrations`)).rows.map((r) => r.id))
+  for (const m of MIGRATIONS) {
+    if (done.has(m.id)) continue
+    await m.run(db)
+    await db.execute({ sql: `INSERT OR IGNORE INTO migrations (id, ran_at) VALUES (?, ?)`, args: [m.id, Date.now()] })
+  }
 }
 
 async function count(db, table) {

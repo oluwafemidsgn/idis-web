@@ -75,7 +75,7 @@ export default function MarkdownField({ name, defaultValue = '' }) {
               </button>
             )}
           </div>
-          {uploadError && <span className="text-[13px] text-coral">{uploadError}</span>}
+          {uploadError && <span className="text-[13px] text-danger">{uploadError}</span>}
           <textarea
             ref={ref}
             value={value}

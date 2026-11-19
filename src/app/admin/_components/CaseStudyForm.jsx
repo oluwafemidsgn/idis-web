@@ -20,7 +20,7 @@ export default function CaseStudyForm({ cs, authors = [], saved }) {
       <Section title="Basics">
         <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
           <Field label="Client name" name="client" defaultValue={c.client} required />
-          <Field label="Short name for menus" name="nav" defaultValue={c.nav} hint="e.g. “Awo the Musical”. Defaults to the client name." />
+          <Field label="Short name for menus" name="nav" defaultValue={c.nav} hint="e.g. “Mothers of Chibok”. Defaults to the client name." />
           <Field label="URL slug" name="slug" defaultValue={c.slug} hint="Leave empty to create it from the client name." />
           <Select label="Filter on the Projects page" name="card.filterTag" options={FILTERS} defaultValue={c.card?.filterTag} />
         </div>
